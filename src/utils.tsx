@@ -1,29 +1,8 @@
+import type { RawNode } from "./network_classes";
+
 export const DEFAULT_PRECISION: number = 2
 
 export type EchelonMap = Record<string, number>
-
-export interface RawNode {
-  id: string
-  obj: { node_type: string;[key: string]: unknown} 
-}
-
-export interface RawEdge {
-  key: string
-  source: string
-  target: string
-  obj: { edge_type: string;[key: string]: unknown} 
-}
-
-export interface GraphData {
-  graph: {
-    nodes: RawNode[]
-    edges: RawEdge[]
-  }
-  echelons: {
-    forwards: string[][]
-    backwards: string[][]
-  }
-}
 
 export function buildEchelonMap(echelons: string[][]): EchelonMap {
   const map: EchelonMap = {}
@@ -50,11 +29,6 @@ export function computeEchelonPositions(
   })
 
   return positions
-}
-
-export interface FlowNodeData {
-  label: string
-  obj: { node_type: string; date?: string; tooltip?: string} 
 }
 
 /**
@@ -85,4 +59,38 @@ export function roundNumbers<T>(data: T, precision: number = DEFAULT_PRECISION):
 
   // Primitives other than number (string, boolean, null, undefined)
   return data
+}
+
+interface PrimitiveSummaryOptions {
+  maxPairs?: number;
+  precision?: number;
+  trimZeros?: boolean;
+}
+
+export function buildPrimitiveSummary(
+  record: Record<string, unknown>,
+  { maxPairs, precision = DEFAULT_PRECISION, trimZeros = false }: PrimitiveSummaryOptions = {}
+): string {
+  const primitive = (v: unknown) =>
+    v === null || ['string', 'number', 'boolean'].includes(typeof v);
+
+  let entries = Object.entries(record).filter(([, v]) => primitive(v));
+
+  if (typeof maxPairs === 'number') {
+    entries = entries.slice(0, maxPairs);
+  }
+
+  return entries
+    .map(([k, v]) => {
+      if (typeof v === 'number' && typeof precision === 'number') {
+        const rounded = roundNumbers(v, precision);
+        let formatted = String(rounded);
+        if (trimZeros && precision > 0) {
+          formatted = formatted.replace(/\.?0+$/, '');
+        }
+        return `${k}: ${formatted}`;
+      }
+      return `${k}: ${v}`;
+    })
+    .join(', ');
 }

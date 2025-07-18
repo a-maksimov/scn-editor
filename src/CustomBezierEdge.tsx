@@ -1,24 +1,28 @@
 import React from 'react'
 import { getBezierPath, type EdgeProps } from 'reactflow'
+import { buildPrimitiveSummary } from './utils';
+import type { FlowEdgeData } from './network_classes';
 
-const CustomBezierEdge: React.FC<EdgeProps> = (props) => {
-  const {
-    id,
-    sourceX,
-    sourceY,
-    sourcePosition,
-    targetX,
-    targetY,
-    targetPosition,
-    markerEnd,
-    style,
-    data,
-  } = props
+const CustomBezierEdge: React.FC<EdgeProps<FlowEdgeData>> = ({
+  id,
+  sourceX,
+  sourceY,
+  sourcePosition,
+  targetX,
+  targetY,
+  targetPosition,
+  markerEnd,
+  style,
+  data,
+}) => {
+    if (!data) {
+    // Edge data has to exist for this application to work
+    throw new Error(`Invariant violation: edge '${id}' rendered without data`);
+  }
 
-  // grab offset if present, default to 0
-  const offset = (data as any)?.offset ?? 0
+  const offset = data?.offset ?? 0;
+  const summary = buildPrimitiveSummary(data.obj, { maxPairs: 12 })
 
-  // shift only the X controls by offset
   const [edgePath] = getBezierPath({
     sourceX: sourceX + offset,
     sourceY,
@@ -27,11 +31,11 @@ const CustomBezierEdge: React.FC<EdgeProps> = (props) => {
     targetY,
     targetPosition,
     curvature: 0.5,
-  })
+  });
 
   return (
     <g className="react-flow__edge">
-      <title>{(data as any).obj.tooltip}</title>
+      <title>{summary}</title>
       <path
         id={id}
         className="react-flow__edge-path"
@@ -40,7 +44,7 @@ const CustomBezierEdge: React.FC<EdgeProps> = (props) => {
         style={style}
       />
     </g>
-  )
-}
+  );
+};
 
-export default CustomBezierEdge
+export default CustomBezierEdge;

@@ -13,17 +13,18 @@ import ReactFlow, {
   type Edge as RFEdge,
 } from 'reactflow'
 import { Button, Form, Input, Typography, Modal } from 'antd'
-import CustomBezierEdge from './CustomBezierEdge'
-import NodeWithHandles from './NodeWithHandles'
+
 import {
   buildEchelonMap,
   computeEchelonPositions,
   roundNumbers,
-  type GraphData,
-  type FlowNodeData,
-  type RawNode as UtilsRawNode,
-  type RawEdge as UtilsRawEdge,
 } from './utils'
+
+import { type GraphData, type RawEdge as UtilsRawEdge, type RawNode as UtilsRawNode } from "./network_classes"
+
+import CustomBezierEdge from './CustomBezierEdge'
+import NodeWithHandles from './NodeWithHandles'
+import { type FlowNodeData } from './network_classes'
 
 import 'reactflow/dist/style.css'
 import './flowStyles.css'
@@ -40,7 +41,6 @@ export default function App() {
   const [details, setDetails] = useState<Record<string, unknown> | null>(null)
   const [form] = Form.useForm()
   const fileInputRef = useRef<HTMLInputElement>(null)
-
 
   // derive raw nodes/edges or empty
   const rawNodes = useMemo<UtilsRawNode[]>(() => graph?.graph.nodes ?? [], [graph])
