@@ -1,0 +1,3095 @@
+{
+    "plan_horizon": 9,
+    "graph": {
+        "directed": true,
+        "multigraph": true,
+        "graph": {},
+        "nodes": [
+            {
+                "obj": {
+                    "network_key": "NetworkKey(location='dalat', product='fruit')",
+                    "entity": null,
+                    "node_type": "undefined",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "NetworkKey(location='dalat', product='fruit')"
+            },
+            {
+                "obj": {
+                    "network_key": "NetworkKey(location='dalat', product='tea_leaves')",
+                    "entity": null,
+                    "node_type": "undefined",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "NetworkKey(location='dalat', product='tea_leaves')"
+            },
+            {
+                "obj": {
+                    "network_key": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                    "entity": null,
+                    "node_type": "undefined",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "NetworkKey(location='hochimin', product='bottled_coffee')"
+            },
+            {
+                "obj": {
+                    "network_key": "NetworkKey(location='hochimin', product='bottled_juice')",
+                    "entity": null,
+                    "node_type": "undefined",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "NetworkKey(location='hochimin', product='bottled_juice')"
+            },
+            {
+                "obj": {
+                    "network_key": "NetworkKey(location='hochimin', product='bottled_tea')",
+                    "entity": null,
+                    "node_type": "undefined",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "NetworkKey(location='hochimin', product='bottled_tea')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProcurementNetworkKey(location='WH01', product='FG-100')",
+                    "entity": "procurement",
+                    "node_type": "procurement",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProcurementNetworkKey(location='WH01', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProcurementNetworkKey(location='WH02', product='FG-100')",
+                    "entity": "procurement",
+                    "node_type": "procurement",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProcurementNetworkKey(location='WH02', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProcurementNetworkKey(location='dalat', product='beans')",
+                    "entity": "procurement",
+                    "node_type": "procurement",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProcurementNetworkKey(location='dalat', product='beans')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProcurementNetworkKey(location='dalat', product='fruit')",
+                    "entity": "procurement",
+                    "node_type": "procurement",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProcurementNetworkKey(location='dalat', product='fruit')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProcurementNetworkKey(location='dalat', product='tea_leaves')",
+                    "entity": "procurement",
+                    "node_type": "procurement",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProcurementNetworkKey(location='dalat', product='tea_leaves')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                    "entity": "production",
+                    "node_type": "production",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                    "entity": "production",
+                    "node_type": "production",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')",
+                    "entity": "production",
+                    "node_type": "production",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                    "entity": "production",
+                    "node_type": "production",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                    "entity": "production",
+                    "node_type": "production",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')"
+            },
+            {
+                "obj": {
+                    "network_key": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')",
+                    "entity": "production",
+                    "node_type": "production",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='CG01', location='RDC01', product='FG-100')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='CG01', location='RDC01', product='FG-100')"
+                            ],
+                            "demand_id": "StreamKey(client='CG01', location='RDC01', product='FG-100')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    142.0,
+                                    149.0,
+                                    111.0,
+                                    148.0,
+                                    122.0,
+                                    146.0,
+                                    114.0,
+                                    113.0,
+                                    127.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    5041.0,
+                                    5550.25,
+                                    3080.25,
+                                    5476.0,
+                                    3721.0,
+                                    5329.0,
+                                    3249.0,
+                                    3192.25,
+                                    4032.25
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='CG01', location='RDC01', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='CG02', location='RDC02', product='FG-100')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='CG02', location='RDC02', product='FG-100')"
+                            ],
+                            "demand_id": "StreamKey(client='CG02', location='RDC02', product='FG-100')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    142.0,
+                                    149.0,
+                                    111.0,
+                                    148.0,
+                                    122.0,
+                                    146.0,
+                                    114.0,
+                                    113.0,
+                                    127.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    5041.0,
+                                    5550.25,
+                                    3080.25,
+                                    5476.0,
+                                    3721.0,
+                                    5329.0,
+                                    3249.0,
+                                    3192.25,
+                                    4032.25
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='CG02', location='RDC02', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee')"
+                            ],
+                            "demand_id": "StreamKey(client='k-mart', location='hochimin', product='bottled_coffee')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice')"
+                            ],
+                            "demand_id": "StreamKey(client='k-mart', location='hochimin', product='bottled_juice')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea')"
+                            ],
+                            "demand_id": "StreamKey(client='k-mart', location='hochimin', product='bottled_tea')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee')"
+                            ],
+                            "demand_id": "StreamKey(client='winmart', location='hochimin', product='bottled_coffee')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice')"
+                            ],
+                            "demand_id": "StreamKey(client='winmart', location='hochimin', product='bottled_juice')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice')"
+            },
+            {
+                "obj": {
+                    "network_key": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea')",
+                    "entity": "sale",
+                    "node_type": "sale",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [
+                        {
+                            "path": [
+                                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea')"
+                            ],
+                            "demand_id": "StreamKey(client='winmart', location='hochimin', product='bottled_tea')",
+                            "keep_upstream": true,
+                            "independent_demand": true,
+                            "_service_level": null,
+                            "demand": {
+                                "__metric_array__": true,
+                                "data": [
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0,
+                                    1000.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "demand_var": {
+                                "__metric_array__": true,
+                                "data": [
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0,
+                                    400.0
+                                ],
+                                "tails": [
+                                    0,
+                                    9
+                                ],
+                                "dtype": "float64"
+                            },
+                            "backlog": null,
+                            "backlog_var": null,
+                            "safety_stock_demand": null,
+                            "safety_stock_supply": null,
+                            "safety_stock_service": null,
+                            "safety_stock": null,
+                            "propagated_demand": null
+                        }
+                    ],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='RDC01', product='FG-100')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='RDC01', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='RDC02', product='FG-100')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='RDC02', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='WH01', product='FG-100')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='WH01', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='WH02', product='FG-100')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='WH02', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='WH03', product='FG-100')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": false,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='WH03', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='dalat', product='beans')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "pool",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='dalat', product='beans')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='beans')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "pool",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='beans')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='bottle')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "pool",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='bottle')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='bottled_coffee')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='bottled_coffee')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='bottled_juice')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='bottled_juice')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='bottled_tea')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='bottled_tea')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='coffee')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='coffee')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='fruit')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "pool",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='fruit')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='juice')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='juice')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='tea')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "divide",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='tea')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='tea_leaves')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "pool",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='tea_leaves')"
+            },
+            {
+                "obj": {
+                    "network_key": "StockNetworkKey(location='danang', product='water')",
+                    "entity": "stock",
+                    "node_type": "stock",
+                    "policy": "pool",
+                    "has_storage": true,
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "order_calendar": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                    ],
+                    "streams": [],
+                    "pools": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "reorder_point": null,
+                    "order_size": null,
+                    "cycle_stock": null,
+                    "average_cycle_stock": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "node_lot_size": 0.0
+                },
+                "id": "StockNetworkKey(location='danang', product='water')"
+            }
+        ],
+        "edges": [
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                    "network_key_to": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee')",
+                    "network_key": "(NetworkKey(location='hochimin', product='bottled_coffee'), SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                "target": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee')",
+                "key": "(NetworkKey(location='hochimin', product='bottled_coffee'), SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                    "network_key_to": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee')",
+                    "network_key": "(NetworkKey(location='hochimin', product='bottled_coffee'), SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                "target": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee')",
+                "key": "(NetworkKey(location='hochimin', product='bottled_coffee'), SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_juice')",
+                    "network_key_to": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice')",
+                    "network_key": "(NetworkKey(location='hochimin', product='bottled_juice'), SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_juice')",
+                "target": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice')",
+                "key": "(NetworkKey(location='hochimin', product='bottled_juice'), SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_juice')",
+                    "network_key_to": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice')",
+                    "network_key": "(NetworkKey(location='hochimin', product='bottled_juice'), SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_juice')",
+                "target": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice')",
+                "key": "(NetworkKey(location='hochimin', product='bottled_juice'), SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_tea')",
+                    "network_key_to": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea')",
+                    "network_key": "(NetworkKey(location='hochimin', product='bottled_tea'), SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_tea')",
+                "target": "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea')",
+                "key": "(NetworkKey(location='hochimin', product='bottled_tea'), SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_tea')",
+                    "network_key_to": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea')",
+                    "network_key": "(NetworkKey(location='hochimin', product='bottled_tea'), SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_tea')",
+                "target": "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea')",
+                "key": "(NetworkKey(location='hochimin', product='bottled_tea'), SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProcurementNetworkKey(location='WH01', product='FG-100')",
+                    "network_key_to": "StockNetworkKey(location='WH01', product='FG-100')",
+                    "network_key": "(ProcurementNetworkKey(location='WH01', product='FG-100'), StockNetworkKey(location='WH01', product='FG-100'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProcurementNetworkKey(location='WH01', product='FG-100')",
+                "target": "StockNetworkKey(location='WH01', product='FG-100')",
+                "key": "(ProcurementNetworkKey(location='WH01', product='FG-100'), StockNetworkKey(location='WH01', product='FG-100'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProcurementNetworkKey(location='WH02', product='FG-100')",
+                    "network_key_to": "StockNetworkKey(location='WH02', product='FG-100')",
+                    "network_key": "(ProcurementNetworkKey(location='WH02', product='FG-100'), StockNetworkKey(location='WH02', product='FG-100'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProcurementNetworkKey(location='WH02', product='FG-100')",
+                "target": "StockNetworkKey(location='WH02', product='FG-100')",
+                "key": "(ProcurementNetworkKey(location='WH02', product='FG-100'), StockNetworkKey(location='WH02', product='FG-100'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProcurementNetworkKey(location='dalat', product='beans')",
+                    "network_key_to": "StockNetworkKey(location='dalat', product='beans')",
+                    "network_key": "(ProcurementNetworkKey(location='dalat', product='beans'), StockNetworkKey(location='dalat', product='beans'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProcurementNetworkKey(location='dalat', product='beans')",
+                "target": "StockNetworkKey(location='dalat', product='beans')",
+                "key": "(ProcurementNetworkKey(location='dalat', product='beans'), StockNetworkKey(location='dalat', product='beans'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProcurementNetworkKey(location='dalat', product='fruit')",
+                    "network_key_to": "NetworkKey(location='dalat', product='fruit')",
+                    "network_key": "(ProcurementNetworkKey(location='dalat', product='fruit'), NetworkKey(location='dalat', product='fruit'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProcurementNetworkKey(location='dalat', product='fruit')",
+                "target": "NetworkKey(location='dalat', product='fruit')",
+                "key": "(ProcurementNetworkKey(location='dalat', product='fruit'), NetworkKey(location='dalat', product='fruit'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProcurementNetworkKey(location='dalat', product='tea_leaves')",
+                    "network_key_to": "NetworkKey(location='dalat', product='tea_leaves')",
+                    "network_key": "(ProcurementNetworkKey(location='dalat', product='tea_leaves'), NetworkKey(location='dalat', product='tea_leaves'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProcurementNetworkKey(location='dalat', product='tea_leaves')",
+                "target": "NetworkKey(location='dalat', product='tea_leaves')",
+                "key": "(ProcurementNetworkKey(location='dalat', product='tea_leaves'), NetworkKey(location='dalat', product='tea_leaves'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='bottled_coffee')",
+                    "network_key": "(ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee'), StockNetworkKey(location='danang', product='bottled_coffee'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                "target": "StockNetworkKey(location='danang', product='bottled_coffee')",
+                "key": "(ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee'), StockNetworkKey(location='danang', product='bottled_coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='bottled_juice')",
+                    "network_key": "(ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice'), StockNetworkKey(location='danang', product='bottled_juice'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                "target": "StockNetworkKey(location='danang', product='bottled_juice')",
+                "key": "(ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice'), StockNetworkKey(location='danang', product='bottled_juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='bottled_tea')",
+                    "network_key": "(ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea'), StockNetworkKey(location='danang', product='bottled_tea'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')",
+                "target": "StockNetworkKey(location='danang', product='bottled_tea')",
+                "key": "(ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea'), StockNetworkKey(location='danang', product='bottled_tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='coffee')",
+                    "network_key": "(ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee'), StockNetworkKey(location='danang', product='coffee'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                "target": "StockNetworkKey(location='danang', product='coffee')",
+                "key": "(ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee'), StockNetworkKey(location='danang', product='coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='juice')",
+                    "network_key": "(ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice'), StockNetworkKey(location='danang', product='juice'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                "target": "StockNetworkKey(location='danang', product='juice')",
+                "key": "(ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice'), StockNetworkKey(location='danang', product='juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='tea')",
+                    "network_key": "(ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea'), StockNetworkKey(location='danang', product='tea'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')",
+                "target": "StockNetworkKey(location='danang', product='tea')",
+                "key": "(ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea'), StockNetworkKey(location='danang', product='tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='RDC01', product='FG-100')",
+                    "network_key_to": "SaleNetworkKey(client='CG01', location='RDC01', product='FG-100')",
+                    "network_key": "(StockNetworkKey(location='RDC01', product='FG-100'), SaleNetworkKey(client='CG01', location='RDC01', product='FG-100'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='RDC01', product='FG-100')",
+                "target": "SaleNetworkKey(client='CG01', location='RDC01', product='FG-100')",
+                "key": "(StockNetworkKey(location='RDC01', product='FG-100'), SaleNetworkKey(client='CG01', location='RDC01', product='FG-100'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='RDC02', product='FG-100')",
+                    "network_key_to": "SaleNetworkKey(client='CG02', location='RDC02', product='FG-100')",
+                    "network_key": "(StockNetworkKey(location='RDC02', product='FG-100'), SaleNetworkKey(client='CG02', location='RDC02', product='FG-100'))",
+                    "entity": null,
+                    "edge_type": "supply",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='RDC02', product='FG-100')",
+                "target": "SaleNetworkKey(client='CG02', location='RDC02', product='FG-100')",
+                "key": "(StockNetworkKey(location='RDC02', product='FG-100'), SaleNetworkKey(client='CG02', location='RDC02', product='FG-100'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='beans')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                    "network_key": "(StockNetworkKey(location='danang', product='beans'), ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='beans')",
+                "target": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                "key": "(StockNetworkKey(location='danang', product='beans'), ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='bottle')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                    "network_key": "(StockNetworkKey(location='danang', product='bottle'), ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='bottle')",
+                "target": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                "key": "(StockNetworkKey(location='danang', product='bottle'), ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='bottle')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                    "network_key": "(StockNetworkKey(location='danang', product='bottle'), ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='bottle')",
+                "target": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                "key": "(StockNetworkKey(location='danang', product='bottle'), ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='bottle')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')",
+                    "network_key": "(StockNetworkKey(location='danang', product='bottle'), ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='bottle')",
+                "target": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')",
+                "key": "(StockNetworkKey(location='danang', product='bottle'), ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='coffee')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                    "network_key": "(StockNetworkKey(location='danang', product='coffee'), ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='coffee')",
+                "target": "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                "key": "(StockNetworkKey(location='danang', product='coffee'), ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='fruit')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                    "network_key": "(StockNetworkKey(location='danang', product='fruit'), ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='fruit')",
+                "target": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                "key": "(StockNetworkKey(location='danang', product='fruit'), ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='juice')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                    "network_key": "(StockNetworkKey(location='danang', product='juice'), ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='juice')",
+                "target": "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                "key": "(StockNetworkKey(location='danang', product='juice'), ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='tea')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')",
+                    "network_key": "(StockNetworkKey(location='danang', product='tea'), ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='tea')",
+                "target": "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')",
+                "key": "(StockNetworkKey(location='danang', product='tea'), ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='tea_leaves')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')",
+                    "network_key": "(StockNetworkKey(location='danang', product='tea_leaves'), ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='tea_leaves')",
+                "target": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')",
+                "key": "(StockNetworkKey(location='danang', product='tea_leaves'), ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='water')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                    "network_key": "(StockNetworkKey(location='danang', product='water'), ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='water')",
+                "target": "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                "key": "(StockNetworkKey(location='danang', product='water'), ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='water')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                    "network_key": "(StockNetworkKey(location='danang', product='water'), ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='water')",
+                "target": "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                "key": "(StockNetworkKey(location='danang', product='water'), ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='water')",
+                    "network_key_to": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')",
+                    "network_key": "(StockNetworkKey(location='danang', product='water'), ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea'))",
+                    "entity": null,
+                    "edge_type": "bom",
+                    "lead_time": 0.0,
+                    "lead_time_var": 0.0,
+                    "keep_upstream": true,
+                    "quota": 1.0,
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='water')",
+                "target": "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')",
+                "key": "(StockNetworkKey(location='danang', product='water'), ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea'))"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='WH01', product='FG-100')",
+                    "network_key_to": "StockNetworkKey(location='WH03', product='FG-100')",
+                    "network_key": "MovementNetworkKey(loc_from='WH01', loc_to='WH03', product='FG-100')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.010000000000000002,
+                    "keep_upstream": true,
+                    "quota": [
+                        0.3,
+                        0.3,
+                        0.3,
+                        0.3,
+                        0.3,
+                        0.3,
+                        0.3,
+                        0.3,
+                        0.3
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='WH01', product='FG-100')",
+                "target": "StockNetworkKey(location='WH03', product='FG-100')",
+                "key": "MovementNetworkKey(loc_from='WH01', loc_to='WH03', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='WH02', product='FG-100')",
+                    "network_key_to": "StockNetworkKey(location='WH03', product='FG-100')",
+                    "network_key": "MovementNetworkKey(loc_from='WH02', loc_to='WH03', product='FG-100')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.010000000000000002,
+                    "keep_upstream": true,
+                    "quota": [
+                        0.7,
+                        0.7,
+                        0.7,
+                        0.7,
+                        0.7,
+                        0.7,
+                        0.7,
+                        0.7,
+                        0.7
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='WH02', product='FG-100')",
+                "target": "StockNetworkKey(location='WH03', product='FG-100')",
+                "key": "MovementNetworkKey(loc_from='WH02', loc_to='WH03', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='WH03', product='FG-100')",
+                    "network_key_to": "StockNetworkKey(location='RDC01', product='FG-100')",
+                    "network_key": "MovementNetworkKey(loc_from='WH03', loc_to='RDC01', product='FG-100')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.010000000000000002,
+                    "keep_upstream": true,
+                    "quota": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='WH03', product='FG-100')",
+                "target": "StockNetworkKey(location='RDC01', product='FG-100')",
+                "key": "MovementNetworkKey(loc_from='WH03', loc_to='RDC01', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='WH03', product='FG-100')",
+                    "network_key_to": "StockNetworkKey(location='RDC02', product='FG-100')",
+                    "network_key": "MovementNetworkKey(loc_from='WH03', loc_to='RDC02', product='FG-100')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.010000000000000002,
+                    "keep_upstream": true,
+                    "quota": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='WH03', product='FG-100')",
+                "target": "StockNetworkKey(location='RDC02', product='FG-100')",
+                "key": "MovementNetworkKey(loc_from='WH03', loc_to='RDC02', product='FG-100')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='dalat', product='beans')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='beans')",
+                    "network_key": "MovementNetworkKey(loc_from='dalat', loc_to='danang', product='beans')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='dalat', product='beans')",
+                "target": "StockNetworkKey(location='danang', product='beans')",
+                "key": "MovementNetworkKey(loc_from='dalat', loc_to='danang', product='beans')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='dalat', product='fruit')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='fruit')",
+                    "network_key": "MovementNetworkKey(loc_from='dalat', loc_to='danang', product='fruit')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='dalat', product='fruit')",
+                "target": "StockNetworkKey(location='danang', product='fruit')",
+                "key": "MovementNetworkKey(loc_from='dalat', loc_to='danang', product='fruit')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='dalat', product='tea_leaves')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='tea_leaves')",
+                    "network_key": "MovementNetworkKey(loc_from='dalat', loc_to='danang', product='tea_leaves')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='dalat', product='tea_leaves')",
+                "target": "StockNetworkKey(location='danang', product='tea_leaves')",
+                "key": "MovementNetworkKey(loc_from='dalat', loc_to='danang', product='tea_leaves')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='beans')",
+                    "network_key_to": "StockNetworkKey(location='dalat', product='beans')",
+                    "network_key": "MovementNetworkKey(loc_from='danang', loc_to='dalat', product='beans')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='beans')",
+                "target": "StockNetworkKey(location='dalat', product='beans')",
+                "key": "MovementNetworkKey(loc_from='danang', loc_to='dalat', product='beans')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='fruit')",
+                    "network_key_to": "NetworkKey(location='dalat', product='fruit')",
+                    "network_key": "MovementNetworkKey(loc_from='danang', loc_to='dalat', product='fruit')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='fruit')",
+                "target": "NetworkKey(location='dalat', product='fruit')",
+                "key": "MovementNetworkKey(loc_from='danang', loc_to='dalat', product='fruit')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='tea_leaves')",
+                    "network_key_to": "NetworkKey(location='dalat', product='tea_leaves')",
+                    "network_key": "MovementNetworkKey(loc_from='danang', loc_to='dalat', product='tea_leaves')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='tea_leaves')",
+                "target": "NetworkKey(location='dalat', product='tea_leaves')",
+                "key": "MovementNetworkKey(loc_from='danang', loc_to='dalat', product='tea_leaves')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='bottled_coffee')",
+                    "network_key_to": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                    "network_key": "MovementNetworkKey(loc_from='danang', loc_to='hochimin', product='bottled_coffee')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='bottled_coffee')",
+                "target": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                "key": "MovementNetworkKey(loc_from='danang', loc_to='hochimin', product='bottled_coffee')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='bottled_juice')",
+                    "network_key_to": "NetworkKey(location='hochimin', product='bottled_juice')",
+                    "network_key": "MovementNetworkKey(loc_from='danang', loc_to='hochimin', product='bottled_juice')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='bottled_juice')",
+                "target": "NetworkKey(location='hochimin', product='bottled_juice')",
+                "key": "MovementNetworkKey(loc_from='danang', loc_to='hochimin', product='bottled_juice')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "StockNetworkKey(location='danang', product='bottled_tea')",
+                    "network_key_to": "NetworkKey(location='hochimin', product='bottled_tea')",
+                    "network_key": "MovementNetworkKey(loc_from='danang', loc_to='hochimin', product='bottled_tea')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "StockNetworkKey(location='danang', product='bottled_tea')",
+                "target": "NetworkKey(location='hochimin', product='bottled_tea')",
+                "key": "MovementNetworkKey(loc_from='danang', loc_to='hochimin', product='bottled_tea')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='bottled_coffee')",
+                    "network_key": "MovementNetworkKey(loc_from='hochimin', loc_to='danang', product='bottled_coffee')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_coffee')",
+                "target": "StockNetworkKey(location='danang', product='bottled_coffee')",
+                "key": "MovementNetworkKey(loc_from='hochimin', loc_to='danang', product='bottled_coffee')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_juice')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='bottled_juice')",
+                    "network_key": "MovementNetworkKey(loc_from='hochimin', loc_to='danang', product='bottled_juice')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_juice')",
+                "target": "StockNetworkKey(location='danang', product='bottled_juice')",
+                "key": "MovementNetworkKey(loc_from='hochimin', loc_to='danang', product='bottled_juice')"
+            },
+            {
+                "obj": {
+                    "network_key_from": "NetworkKey(location='hochimin', product='bottled_tea')",
+                    "network_key_to": "StockNetworkKey(location='danang', product='bottled_tea')",
+                    "network_key": "MovementNetworkKey(loc_from='hochimin', loc_to='danang', product='bottled_tea')",
+                    "entity": "movement",
+                    "edge_type": "movement",
+                    "lead_time": 1.0,
+                    "lead_time_var": 0.04000000000000001,
+                    "keep_upstream": true,
+                    "quota": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "streams": [],
+                    "propagated_lead_time": 0.0,
+                    "propagated_lead_time_var": 0.0,
+                    "propagated_demand": null,
+                    "propagated_min_lot_size": 0.0,
+                    "propagated_lot_multiplier": 0.0,
+                    "min_lot_size": null,
+                    "lot_multiplier": null
+                },
+                "source": "NetworkKey(location='hochimin', product='bottled_tea')",
+                "target": "StockNetworkKey(location='danang', product='bottled_tea')",
+                "key": "MovementNetworkKey(loc_from='hochimin', loc_to='danang', product='bottled_tea')"
+            }
+        ]
+    },
+    "echelons": {
+        "forward": [
+            [
+                "ProcurementNetworkKey(location='WH01', product='FG-100')",
+                "ProcurementNetworkKey(location='WH02', product='FG-100')",
+                "ProcurementNetworkKey(location='dalat', product='beans')",
+                "ProcurementNetworkKey(location='dalat', product='fruit')",
+                "ProcurementNetworkKey(location='dalat', product='tea_leaves')",
+                "StockNetworkKey(location='danang', product='bottle')",
+                "StockNetworkKey(location='danang', product='water')"
+            ],
+            [
+                "StockNetworkKey(location='WH01', product='FG-100')",
+                "StockNetworkKey(location='WH02', product='FG-100')",
+                "StockNetworkKey(location='dalat', product='beans')",
+                "NetworkKey(location='dalat', product='fruit')",
+                "NetworkKey(location='dalat', product='tea_leaves')"
+            ],
+            [
+                "StockNetworkKey(location='WH03', product='FG-100')",
+                "StockNetworkKey(location='danang', product='beans')",
+                "StockNetworkKey(location='danang', product='fruit')",
+                "StockNetworkKey(location='danang', product='tea_leaves')"
+            ],
+            [
+                "StockNetworkKey(location='RDC01', product='FG-100')",
+                "StockNetworkKey(location='RDC02', product='FG-100')",
+                "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')"
+            ],
+            [
+                "SaleNetworkKey(client='CG01', location='RDC01', product='FG-100')",
+                "SaleNetworkKey(client='CG02', location='RDC02', product='FG-100')",
+                "StockNetworkKey(location='danang', product='coffee')",
+                "StockNetworkKey(location='danang', product='juice')",
+                "StockNetworkKey(location='danang', product='tea')"
+            ],
+            [
+                "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')"
+            ],
+            [
+                "StockNetworkKey(location='danang', product='bottled_coffee')",
+                "StockNetworkKey(location='danang', product='bottled_juice')",
+                "StockNetworkKey(location='danang', product='bottled_tea')"
+            ],
+            [
+                "NetworkKey(location='hochimin', product='bottled_coffee')",
+                "NetworkKey(location='hochimin', product='bottled_juice')",
+                "NetworkKey(location='hochimin', product='bottled_tea')"
+            ],
+            [
+                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee')",
+                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice')",
+                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea')",
+                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee')",
+                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice')",
+                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea')"
+            ]
+        ],
+        "backwards": [
+            [
+                "SaleNetworkKey(client='CG01', location='RDC01', product='FG-100')",
+                "SaleNetworkKey(client='CG02', location='RDC02', product='FG-100')",
+                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_coffee')",
+                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_juice')",
+                "SaleNetworkKey(client='k-mart', location='hochimin', product='bottled_tea')",
+                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_coffee')",
+                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_juice')",
+                "SaleNetworkKey(client='winmart', location='hochimin', product='bottled_tea')"
+            ],
+            [
+                "StockNetworkKey(location='RDC01', product='FG-100')",
+                "StockNetworkKey(location='RDC02', product='FG-100')",
+                "NetworkKey(location='hochimin', product='bottled_coffee')",
+                "NetworkKey(location='hochimin', product='bottled_juice')",
+                "NetworkKey(location='hochimin', product='bottled_tea')"
+            ],
+            [
+                "StockNetworkKey(location='WH03', product='FG-100')",
+                "StockNetworkKey(location='danang', product='bottled_coffee')",
+                "StockNetworkKey(location='danang', product='bottled_juice')",
+                "StockNetworkKey(location='danang', product='bottled_tea')"
+            ],
+            [
+                "StockNetworkKey(location='WH01', product='FG-100')",
+                "StockNetworkKey(location='WH02', product='FG-100')",
+                "ProductionNetworkKey(bomnum='danang_bottled_coffee', location='danang', product='bottled_coffee')",
+                "ProductionNetworkKey(bomnum='danang_bottled_juice', location='danang', product='bottled_juice')",
+                "ProductionNetworkKey(bomnum='danang_bottled_tea', location='danang', product='bottled_tea')"
+            ],
+            [
+                "ProcurementNetworkKey(location='WH01', product='FG-100')",
+                "ProcurementNetworkKey(location='WH02', product='FG-100')",
+                "StockNetworkKey(location='danang', product='bottle')",
+                "StockNetworkKey(location='danang', product='coffee')",
+                "StockNetworkKey(location='danang', product='juice')",
+                "StockNetworkKey(location='danang', product='tea')"
+            ],
+            [
+                "ProductionNetworkKey(bomnum='danang_coffee', location='danang', product='coffee')",
+                "ProductionNetworkKey(bomnum='danang_juice', location='danang', product='juice')",
+                "ProductionNetworkKey(bomnum='danang_tea', location='danang', product='tea')"
+            ],
+            [
+                "StockNetworkKey(location='danang', product='beans')",
+                "StockNetworkKey(location='danang', product='fruit')",
+                "StockNetworkKey(location='danang', product='tea_leaves')",
+                "StockNetworkKey(location='danang', product='water')"
+            ],
+            [
+                "StockNetworkKey(location='dalat', product='beans')",
+                "NetworkKey(location='dalat', product='fruit')",
+                "NetworkKey(location='dalat', product='tea_leaves')"
+            ],
+            [
+                "ProcurementNetworkKey(location='dalat', product='beans')",
+                "ProcurementNetworkKey(location='dalat', product='fruit')",
+                "ProcurementNetworkKey(location='dalat', product='tea_leaves')"
+            ]
+        ]
+    }
+}

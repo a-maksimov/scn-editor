@@ -1,10 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import 'antd/dist/reset.css'
 import './index.css'
-import App from './App.tsx'
+import App from './App'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+// Change ReactDOM.createRoot(document.getElementById('root')) as HTMLElement, for TypeScript
+ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
+  </React.StrictMode>
 )

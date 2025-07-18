@@ -1,0 +1,149 @@
+/* flowStyles.css */
+
+/* ====================
+   CSS Variables
+   ==================== */
+:root {
+  --node-size: 50px;
+  --node-border-width: 2px;
+  --node-border-color: #333;
+  --node-font-size: 12px;
+  --label-spacing: 4px;
+}
+
+/* ====================
+   Custom Node Wrapper
+   ==================== */
+.custom-node-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: all;
+}
+
+.custom-node-shape {
+  position: relative;
+  width: var(--node-size);
+  height: var(--node-size);
+  border: var(--node-border-width) solid var(--node-border-color);
+  box-sizing: border-box;
+}
+
+.custom-node-label {
+  margin-top: var(--label-spacing);
+  font-size: var(--node-font-size);
+  white-space: nowrap;
+  text-align: center;
+  max-width: calc(var(--node-size) * 2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ====================
+   Base ReactFlow Node Reset
+   ==================== */
+.react-flow__node {
+  /* reset default
+     we use our own wrapper for sizing and layout */
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+}
+
+/* ====================
+   Node Types (shape + color)
+   ==================== */
+/* Sale: circle */
+.custom-node-shape.node--sale {
+  background: yellow;
+  border-radius: 50%;
+}
+
+/* Stock: triangle */
+.custom-node-shape.node--stock,
+.custom-node-shape.node--stock_no_storage,
+.custom-node-shape.node--distributor {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.custom-node-shape.node--stock {
+  background: blue;
+}
+.custom-node-shape.node--stock_no_storage {
+  background: lightgray;
+}
+.custom-node-shape.node--distributor {
+  background: yellow;
+}
+
+/* Squares */
+.custom-node-shape.node--production {
+  background: black;
+}
+.custom-node-shape.node--procurement {
+  background: green;
+}
+.custom-node-shape.node--undefined {
+  background: lightgray;
+}
+
+/* Content text color inside shapes (if any) */
+.custom-node-shape.node--stock,
+.custom-node-shape.node--distributor {
+  color: white;
+}
+.custom-node-shape.node--production,
+.custom-node-shape.node--procurement {
+  color: white;
+}
+.custom-node-shape.node--stock_no_storage,
+.custom-node-shape.node--undefined {
+  color: black;
+}
+
+/* ====================
+   Edge Styles
+   ==================== */
+.react-flow__edge-path {
+  stroke-width: 2px;
+}
+
+/* Movement */
+.edge--movement .react-flow__edge-path {
+  stroke: rgba(0, 0, 0, 0.3);
+}
+.edge--movement .react-flow__arrowhead {
+  fill: rgba(0, 0, 0, 0.3);
+}
+
+/* Supply */
+.edge--supply .react-flow__edge-path {
+  stroke: rgba(255, 0, 0, 0.3);
+  stroke-dasharray: 6 4;
+}
+.edge--supply .react-flow__arrowhead {
+  fill: rgba(255, 0, 0, 0.3);
+}
+
+/* BOM */
+.edge--bom .react-flow__edge-path {
+  stroke: rgba(0, 128, 0, 0.3);
+  stroke-dasharray: 6 4;
+}
+.edge--bom .react-flow__arrowhead {
+  fill: rgba(0, 128, 0, 0.3);
+}
+
+/* Undefined edges */
+.edge--undefined .react-flow__edge-path {
+  stroke: rgba(211, 211, 211, 0.3);
+  stroke-dasharray: 6 4;
+}
+.edge--undefined .react-flow__arrowhead {
+  fill: rgba(211, 211, 211, 0.3);
+}
+
+/* Hover / Selected */
+.react-flow__edge-path:hover,
+.react-flow__edge.selected .react-flow__edge-path {
+  opacity: 0.7;
+}
