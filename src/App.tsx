@@ -63,6 +63,8 @@ export default function App() {
   const [edges, setEdges] = useState<RFEdge<FlowEdgeData>[]>([]);
   const [selected, setSelected] = useState<SelectionState | null>(null);
   const [details, setDetails] = useState<JSONValue | null>(null);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [exportName, setExportName] = useState("export");
 
   const [sidebarWidth, setSidebarWidth] = useState<number>(360);
   const resizingRef = useRef(false);
@@ -95,6 +97,15 @@ export default function App() {
   }, []);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!exportOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExportOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [exportOpen]);
 
   // Draggable sidebar hook
   // const { nodeRef: sidebarRef, onMouseDown: onSidebarDrag } = useDraggable({ x: 0, y: 0 });
@@ -304,28 +315,36 @@ export default function App() {
     evt.target.value = "";
   };
 
-  const exportJson = useCallback(() => {
-    if (!graph) return;
-    const out = {
-      graph: {
-        nodes: nodes.map((n) => ({ id: n.id, obj: roundNumbers(n.data.obj) })),
-        edges: edges.map((e) => ({
-          key: e.id,
-          source: e.source,
-          target: e.target,
-          obj: e.data?.obj ?? {}, // data is optional for edges
-        })),
-      },
-      echelons: graph.echelons,
-    };
-    const blob = new Blob([JSON.stringify(out, null, 2)], {
-      type: "application/json",
-    });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "export.json";
-    link.click();
-  }, [nodes, edges, graph]);
+  const performExport = useCallback(
+    (filename: string) => {
+      if (!graph) return;
+      const out = {
+        graph: {
+          nodes: nodes.map((n) => ({
+            id: n.id,
+            obj: roundNumbers(n.data.obj),
+          })),
+          edges: edges.map((e) => ({
+            key: e.id,
+            source: e.source,
+            target: e.target,
+            obj: e.data.obj,
+          })),
+        },
+        echelons: graph.echelons,
+      };
+      const blob = new Blob([JSON.stringify(out, null, 2)], {
+        type: "application/json",
+      });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      const safe = filename.trim() === "" ? "export" : filename.trim();
+      link.download = safe.endsWith(".json") ? safe : `${safe}.json`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 0);
+    },
+    [nodes, edges, graph]
+  );
 
   return (
     <div className="app-container">
@@ -338,7 +357,16 @@ export default function App() {
           ref={fileInputRef}
           onChange={onFileChange}
         />
-        <Button type="primary" onClick={exportJson} disabled={!graph}>
+        <Button
+          type="primary"
+          onClick={() => {
+            if (graph) {
+              setExportName("export_network.json");
+              setExportOpen(true);
+            }
+          }}
+          disabled={!graph}
+        >
           Export JSON
         </Button>
       </div>
@@ -433,6 +461,27 @@ export default function App() {
           )}
         </div>
       </div>
+      <Modal
+        title="Export JSON"
+        open={exportOpen}
+        onOk={() => {
+          performExport(exportName);
+          setExportOpen(false);
+        }}
+        onCancel={() => setExportOpen(false)}
+        okText="Save"
+      >
+        <input
+          autoFocus
+          value={exportName}
+          onChange={(e) => setExportName(e.target.value)}
+          style={{ width: "100%", padding: 6 }}
+          placeholder="export"
+        />
+        <div style={{ fontSize: 12, marginTop: 4, color: "#666" }}>
+          .json will be appended if not set.
+        </div>
+      </Modal>
     </div>
   );
 }
