@@ -1,14 +1,14 @@
 // Raw data from JSON
 export interface RawNode {
   id: string;
-  obj: { node_type: string; [key: string]: unknown; };
+  obj: { node_type: string; [key: string]: unknown };
 }
 
 export interface RawEdge {
   key: string;
   source: string;
   target: string;
-  obj: { edge_type: string; [key: string]: unknown; };
+  obj: { edge_type: string; [key: string]: unknown };
 }
 
 export interface GraphData {
@@ -77,7 +77,6 @@ export interface SupplyEdgeObject {
   [key: string]: unknown;
 }
 
-
 // Data for React Flow (payload, to put in node.data and edge.data)
 export interface FlowNodeData {
   label: string;
@@ -88,5 +87,3 @@ export interface FlowEdgeData {
   obj: SupplyEdgeObject;
   offset?: number;
 }
-
-

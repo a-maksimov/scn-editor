@@ -1,7 +1,7 @@
-import React from 'react'
-import { getBezierPath, type EdgeProps } from 'reactflow'
-import { buildPrimitiveSummary } from './utils';
-import type { FlowEdgeData } from './network_classes';
+import React from "react";
+import { getBezierPath, type EdgeProps } from "reactflow";
+import { buildPrimitiveSummary } from "./utils";
+import type { FlowEdgeData } from "./network_classes";
 
 const CustomBezierEdge: React.FC<EdgeProps<FlowEdgeData>> = ({
   id,
@@ -15,13 +15,13 @@ const CustomBezierEdge: React.FC<EdgeProps<FlowEdgeData>> = ({
   style,
   data,
 }) => {
-    if (!data) {
+  if (!data) {
     // Edge data has to exist for this application to work
     throw new Error(`Invariant violation: edge '${id}' rendered without data`);
   }
 
   const offset = data?.offset ?? 0;
-  const summary = buildPrimitiveSummary(data.obj, { maxPairs: 12 })
+  const summary = buildPrimitiveSummary(data.obj, { maxPairs: 12 });
 
   const [edgePath] = getBezierPath({
     sourceX: sourceX + offset,
