@@ -1,0 +1,180 @@
+/* ====================
+   Legend (compact)
+   ==================== */
+.legend--floating {
+  position: absolute;
+  left: 8px;
+  top: 72px; /* ниже панели */
+  z-index: 45;
+}
+
+.legend {
+  width: 230px;
+  font-size: 12px;
+  background: #ffffffcc;
+  backdrop-filter: blur(2px);
+  border: 1px solid #cfd3d7;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+}
+
+.legend.is-collapsed {
+  width: auto;
+}
+
+.legend__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  cursor: pointer;
+  user-select: none;
+  background: #f2f4f6;
+  border-bottom: 1px solid #d9d9d9;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.legend__toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-size: 11px;
+  line-height: 1;
+  color: #555;
+}
+
+.legend__body {
+  padding: 8px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.legend__section-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.legend__nodes,
+.legend__edges {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+/* Общая строка */
+.legend__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.1;
+}
+
+/* Нодовые мини-иконки */
+.legend-node-swatch {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #333;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Подпись */
+.legend__label {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Иконки форм для node типов (повторяем мини-формы, но без большого размера) */
+.legend-node-swatch.node--sale {
+  background: yellow;
+  border-radius: 50%;
+}
+.legend-node-swatch.node--stock,
+.legend-node-swatch.node--stock_no_storage,
+.legend-node-swatch.node--distributor {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.legend-node-swatch.node--stock {
+  background: blue;
+}
+.legend-node-swatch.node--stock_no_storage {
+  background: lightgray;
+}
+.legend-node-swatch.node--distributor {
+  background: yellow;
+}
+
+.legend-node-swatch.node--production {
+  background: black;
+}
+.legend-node-swatch.node--procurement {
+  background: green;
+}
+.legend-node-swatch.node--undefined {
+  background: lightgray;
+}
+
+/* Мини‑ребро */
+.legend-edge-swatch {
+  width: 60px;
+  height: 16px;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+/* Сбрасываем дефолтный stroke, задаём через классы edge--TYPE */
+.legend-edge-path {
+  stroke-width: 2px;
+  stroke: #333;
+  fill: none;
+}
+
+/* Цвет и пунктир (можно синхронизировать с основными стилями, но здесь чуть насыщеннее для читаемости) */
+.legend-edge-path.edge--movement {
+  stroke: rgba(0, 0, 0, 0.55);
+}
+.legend-edge-path.edge--supply {
+  stroke: rgba(255, 0, 0, 0.65);
+  stroke-dasharray: 5 4;
+}
+.legend-edge-path.edge--bom {
+  stroke: rgba(0, 128, 0, 0.65);
+  stroke-dasharray: 5 4;
+}
+.legend-edge-path.edge--undefined {
+  stroke: rgba(180, 180, 180, 0.9);
+  stroke-dasharray: 5 4;
+}
+
+.legend-edge-swatch polygon {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Для маркера цвет берём как stroke текущего path */
+.legend-edge-path.edge--movement {
+  color: rgba(0, 0, 0, 0.55);
+}
+.legend-edge-path.edge--supply {
+  color: rgba(255, 0, 0, 0.65);
+}
+.legend-edge-path.edge--bom {
+  color: rgba(0, 128, 0, 0.65);
+}
+.legend-edge-path.edge--undefined {
+  color: rgba(180, 180, 180, 0.9);
+}

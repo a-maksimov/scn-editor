@@ -1,3 +1,4 @@
+// App.tsx
 import React, {
   useState,
   useCallback,
@@ -42,6 +43,7 @@ import NodeWithHandles from "./NodeWithHandles";
 import { JsonTree } from "./components/JsonTree";
 import { NODE_TEMPLATES } from "./components/node_templates";
 import { EDGE_TEMPLATES } from "./components/edge_templates";
+import { Legend } from "./components/legend";
 
 import type { JSONValue } from "./components/json-types";
 
@@ -606,13 +608,13 @@ export default function App() {
           padding: 8,
           borderRadius: 4,
           display: "flex",
-          gap: 8,
-          flexWrap: "wrap",
+          flexDirection: "column",
+          gap: 6,
           boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
           maxWidth: "calc(100% - 400px)",
         }}
       >
-        <Space wrap align="center">
+        <Space wrap align="center" style={{ rowGap: 4 }}>
           <Button onClick={onImportClick}>Import</Button>
           <input
             ref={fileInputRef}
@@ -690,7 +692,7 @@ export default function App() {
           </Button>
         </Space>
       </div>
-
+      <Legend />
       <div className="flow-area">
         <div className="reactflow-wrapper">
           <ReactFlow
