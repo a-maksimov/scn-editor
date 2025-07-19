@@ -1,7 +1,7 @@
 // src/NodeWithHandles.tsx
 import { Handle, Position, type NodeProps } from "reactflow";
 import { Tooltip } from "antd";
-import type { FlowNodeData } from "./network_classes";
+import type { FlowNodeData } from "./components/network_classes";
 import { buildPrimitiveSummary } from "./utils";
 
 export function NodeWithHandles({

@@ -3,7 +3,7 @@ import type {
   RawNode,
   SupplyEdgeObject,
   SupplyNodeObject,
-} from "./network_classes";
+} from "./components/network_classes";
 
 export const DEFAULT_PRECISION: number = 2;
 

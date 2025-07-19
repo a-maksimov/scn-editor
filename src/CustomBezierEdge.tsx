@@ -1,7 +1,7 @@
 import React from "react";
 import { getBezierPath, type EdgeProps } from "reactflow";
 import { buildPrimitiveSummary } from "./utils";
-import type { FlowEdgeData } from "./network_classes";
+import type { FlowEdgeData } from "./components/network_classes";
 
 const CustomBezierEdge: React.FC<EdgeProps<FlowEdgeData>> = ({
   id,

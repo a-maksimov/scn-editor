@@ -6,8 +6,6 @@ import React, {
   useEffect,
 } from "react";
 import ReactFlow, {
-  ReactFlowProvider,
-  addEdge,
   applyNodeChanges,
   applyEdgeChanges,
   MarkerType,
@@ -16,78 +14,104 @@ import ReactFlow, {
   type EdgeChange,
   type Node as RFNode,
   type Edge as RFEdge,
+  type ReactFlowInstance,
 } from "reactflow";
-import { Button, Modal } from "antd";
+import { Button, Modal, Space, Select } from "antd";
 
 import {
   buildEchelonMap,
   computeEchelonPositions,
   roundNumbers,
+  deriveNodeLabel,
+  updateJsonAtPath,
+  sanitizeToJSONValue,
 } from "./utils";
 
-import type {
-  GraphData,
-  RawNode,
-  RawEdge,
-  FlowNodeData,
-  FlowEdgeData,
-  SupplyEdgeObject,
-  SupplyNodeObject,
-} from "./network_classes";
+import {
+  type GraphData,
+  type RawNode,
+  type RawEdge,
+  type FlowNodeData,
+  type FlowEdgeData,
+  type SupplyEdgeObject,
+  type SupplyNodeObject,
+} from "./components/network_classes";
 
 import CustomBezierEdge from "./CustomBezierEdge";
 import NodeWithHandles from "./NodeWithHandles";
 import { JsonTree } from "./components/JsonTree";
-import { deriveNodeLabel } from "./utils";
-import { updateJsonAtPath } from "./utils";
-import { sanitizeToJSONValue } from "./utils";
-// import { useDraggable } from './components/useDraggable';
+import { NODE_TEMPLATES } from "./components/node_templates";
+import { EDGE_TEMPLATES } from "./components/edge_templates";
+
+import type { JSONValue } from "./components/json-types";
 
 import "reactflow/dist/style.css";
 import "./flowStyles.css";
 import "./App.css";
-import type { JSONValue } from "./components/json-types";
 
+// --- Вынесенные типы для React Flow (важно чтобы не пересоздавались)
+const NODE_TYPES = { custom: NodeWithHandles } as const;
+const EDGE_TYPES = { customBezier: CustomBezierEdge } as const;
+
+// --- Утилиты ID
+const genNodeId = () => `n_${Date.now().toString(36)}`;
+const genEdgeId = (s: string, t: string, et: string) =>
+  `${s}__${et}__${t}__${Date.now().toString(36)}`;
+
+const getEdgeTemplate = (edge_type: string) =>
+  EDGE_TEMPLATES.find((t) => t.edge_type === edge_type);
+
+const cloneEdgeTemplateObj = (edge_type: string) => {
+  const tpl = getEdgeTemplate(edge_type);
+  return tpl ? { ...tpl.defaultObj } : ({ edge_type } as SupplyEdgeObject);
+};
+
+// --- Выбор (node | edge)
 interface SelectionState {
   kind: "node" | "edge";
   id: string;
 }
 
-const nodeTypes = { custom: NodeWithHandles };
-const edgeTypes = { customBezier: CustomBezierEdge };
-
 export default function App() {
-  // graph starts empty, loaded via import
+  // --- Состояния
   const [graph, setGraph] = useState<GraphData | null>(null);
   const [nodes, setNodes] = useState<RFNode<FlowNodeData>[]>([]);
   const [edges, setEdges] = useState<RFEdge<FlowEdgeData>[]>([]);
   const [selected, setSelected] = useState<SelectionState | null>(null);
   const [details, setDetails] = useState<JSONValue | null>(null);
+
   const [exportOpen, setExportOpen] = useState(false);
   const [exportName, setExportName] = useState("export");
 
   const [sidebarWidth, setSidebarWidth] = useState<number>(360);
   const resizingRef = useRef(false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const rfInstanceRef = useRef<ReactFlowInstance | null>(null);
+
+  // --- Формы добавления
+  const [nodeTemplateType, setNodeTemplateType] = useState<
+    string | undefined
+  >();
+  const [edgeForm, setEdgeForm] = useState({
+    source: "",
+    target: "",
+    edge_type: "movement",
+  });
+
+  // --- Resize sidebar
   const startResize = (e: React.MouseEvent) => {
     resizingRef.current = true;
     e.preventDefault();
   };
-
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       if (!resizingRef.current) return;
       const raw = window.innerWidth - e.clientX;
-      const clamped = Math.min(
-        Math.max(240, raw), // min 240
-        window.innerWidth * 0.7 // max 70% ширины окна
-      );
+      const clamped = Math.min(Math.max(240, raw), window.innerWidth * 0.7);
       setSidebarWidth(clamped);
     };
-
-    const onUp = () => {
-      resizingRef.current = false;
-    };
+    const onUp = () => (resizingRef.current = false);
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
     return () => {
@@ -96,21 +120,7 @@ export default function App() {
     };
   }, []);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!exportOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setExportOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [exportOpen]);
-
-  // Draggable sidebar hook
-  // const { nodeRef: sidebarRef, onMouseDown: onSidebarDrag } = useDraggable({ x: 0, y: 0 });
-
-  // Derived data
+  // --- Derived
   const rawNodes: RawNode[] = useMemo(() => graph?.graph.nodes ?? [], [graph]);
   const rawEdges: RawEdge[] = useMemo(() => graph?.graph.edges ?? [], [graph]);
 
@@ -118,7 +128,6 @@ export default function App() {
     () => (graph ? [...graph.echelons.backwards].reverse() : []),
     [graph]
   );
-
   const echelonMap = useMemo(() => buildEchelonMap(echelons), [echelons]);
 
   const positions = useMemo(
@@ -157,10 +166,7 @@ export default function App() {
           type: "customBezier",
           sourceHandle: down ? "source-bottom" : "source-top",
           targetHandle: down ? "target-top" : "target-bottom",
-          data: {
-            offset: 0,
-            obj,
-          },
+          data: { offset: 0, obj },
           markerEnd: { type: MarkerType.ArrowClosed },
           className: `edge--${obj.edge_type}`,
           style: { strokeWidth: 2, opacity: 1 },
@@ -169,7 +175,7 @@ export default function App() {
     [rawEdges, echelonMap]
   );
 
-  // Reset when graph changes
+  // --- Reset при смене graph
   useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
@@ -177,7 +183,184 @@ export default function App() {
     setDetails(null);
   }, [initialNodes, initialEdges]);
 
-  // React Flow handlers
+  // --- Добавление узла
+  const addNodeFromTemplate = useCallback(() => {
+    if (!nodeTemplateType) return;
+    const tpl = NODE_TEMPLATES.find((t) => t.node_type === nodeTemplateType);
+    if (!tpl) return;
+
+    // центр текущего viewport (если инстанс готов)
+    const inst = rfInstanceRef.current;
+    const viewport = inst?.getViewport();
+    let position = { x: 0, y: 0 };
+    if (inst && viewport) {
+      const centerScreen = {
+        x: window.innerWidth / 2,
+        y: (window.innerHeight - 48) / 2,
+      };
+      position = inst.project({
+        x: (centerScreen.x - viewport.x) / viewport.zoom,
+        y: (centerScreen.y - viewport.y) / viewport.zoom,
+      });
+    }
+
+    const id = genNodeId();
+    const obj = {
+      ...tpl.defaultObj,
+      // если нет network_key заранее – заполняем им же
+      network_key: tpl.defaultObj.network_key ?? id,
+    };
+
+    const newNode: RFNode<FlowNodeData> = {
+      id,
+      type: "custom",
+      data: { label: id, obj },
+      position,
+      className: `node--${obj.node_type}`,
+      style: { opacity: 1 },
+    };
+
+    setNodes((ns) => [...ns, newNode]);
+    setGraph((g) => {
+      if (!g) return g;
+      const backwards = [...g.echelons.backwards];
+      if (backwards.length === 0) backwards.push([id]);
+      else backwards[0] = [...backwards[0], id];
+      return {
+        ...g,
+        graph: {
+          ...g.graph,
+          nodes: [...g.graph.nodes, { id, obj }],
+        },
+        echelons: {
+          ...g.echelons,
+          backwards,
+        },
+      };
+    });
+  }, [nodeTemplateType, setNodes, setGraph]);
+
+  // --- Добавление ребра
+  const addEdgeManual = useCallback(() => {
+    const { source, target, edge_type } = edgeForm;
+    if (!source || !target || source === target) return;
+
+    const levelSource = echelonMap[source] ?? 0;
+    const levelTarget = echelonMap[target] ?? 0;
+    const goesDown = levelSource < levelTarget;
+
+    const id = genEdgeId(source, target, edge_type);
+    const tpl =
+      EDGE_TEMPLATES.find((t) => t.edge_type === edge_type) ||
+      EDGE_TEMPLATES.find((t) => t.edge_type === "movement")!; // fallback
+
+    const edgeObj: SupplyEdgeObject = {
+      ...tpl.defaultObj,
+      network_key_from: source,
+      network_key_to: target,
+      // network_key можно синтетически задать, если нужно уникально:
+      network_key:
+        tpl.defaultObj.network_key ?? `(${source})__${edge_type}__(${target})`,
+    };
+
+    const newEdge: RFEdge<FlowEdgeData> = {
+      id,
+      source,
+      target,
+      type: "customBezier",
+      sourceHandle: goesDown ? "source-bottom" : "source-top",
+      targetHandle: goesDown ? "target-top" : "target-bottom",
+      data: { obj: edgeObj, offset: 0 },
+      markerEnd: { type: MarkerType.ArrowClosed },
+      className: `edge--${edgeObj.edge_type}`,
+      style: { strokeWidth: 2, opacity: 1 },
+    };
+
+    setEdges((es) => [...es, newEdge]);
+    setGraph((g) =>
+      g
+        ? {
+            ...g,
+            graph: {
+              ...g.graph,
+              edges: [
+                ...g.graph.edges,
+                { key: id, source, target, obj: edgeObj },
+              ],
+            },
+          }
+        : g
+    );
+  }, [edgeForm, echelonMap]);
+
+  // --- Удаление выбранного
+  const deleteSelected = useCallback(() => {
+    if (!selected) return;
+
+    if (selected.kind === "node") {
+      setEdges((es) =>
+        es.filter((e) => e.source !== selected.id && e.target !== selected.id)
+      );
+      setNodes((ns) => ns.filter((n) => n.id !== selected.id));
+      setGraph((g) =>
+        g
+          ? {
+              ...g,
+              graph: {
+                nodes: g.graph.nodes.filter((n) => n.id !== selected.id),
+                edges: g.graph.edges.filter(
+                  (e) => e.source !== selected.id && e.target !== selected.id
+                ),
+              },
+              echelons: {
+                forward: g.echelons.forward.map((arr) =>
+                  arr.filter((id) => id !== selected.id)
+                ),
+                backwards: g.echelons.backwards.map((arr) =>
+                  arr.filter((id) => id !== selected.id)
+                ),
+              },
+            }
+          : g
+      );
+    } else {
+      setEdges((es) => es.filter((e) => e.id !== selected.id));
+      setGraph((g) =>
+        g
+          ? {
+              ...g,
+              graph: {
+                ...g.graph,
+                edges: g.graph.edges.filter((e) => e.key !== selected.id),
+              },
+            }
+          : g
+      );
+    }
+    setSelected(null);
+    setDetails(null);
+  }, [selected]);
+
+  // --- Delete key
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Delete" || e.key === "Backspace") deleteSelected();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [deleteSelected]);
+
+  // --- Export dialog Esc
+  useEffect(() => {
+    if (!exportOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExportOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [exportOpen]);
+
+  // --- Flow handlers
   const onNodesChange = useCallback(
     (changes: NodeChange[]) =>
       setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -188,9 +371,75 @@ export default function App() {
       setEdges((eds) => applyEdgeChanges(changes, eds)),
     []
   );
+
   const onConnect = useCallback(
-    (conn: Connection) => setEdges((eds) => addEdge(conn, eds)),
-    []
+    (conn: Connection) => {
+      if (!conn.source || !conn.target) return;
+
+      const source = conn.source;
+      const target = conn.target;
+
+      // не дублировать movement между той же парой
+      setEdges((prev) => {
+        if (
+          prev.some(
+            (e) =>
+              e.source === source &&
+              e.target === target &&
+              e.data?.obj.edge_type === "movement"
+          )
+        ) {
+          return prev;
+        }
+
+        const edge_type = "movement";
+        const levelSource = echelonMap[source] ?? 0;
+        const levelTarget = echelonMap[target] ?? 0;
+        const goesDown = levelSource < levelTarget;
+
+        const id = genEdgeId(source, target, edge_type);
+        const edgeObj = cloneEdgeTemplateObj(edge_type);
+        edgeObj.network_key_from = source;
+        edgeObj.network_key_to = target;
+
+        const newEdge: RFEdge<FlowEdgeData> = {
+          id,
+          source: source,
+          target: target,
+          type: "customBezier",
+          sourceHandle: goesDown ? "source-bottom" : "source-top",
+          targetHandle: goesDown ? "target-top" : "target-bottom",
+          data: { obj: edgeObj, offset: 0 },
+          markerEnd: { type: MarkerType.ArrowClosed },
+          className: `edge--${edge_type}`,
+          style: { strokeWidth: 2, opacity: 1 },
+        };
+
+        // синхронизируем graph
+        setGraph((g) =>
+          g
+            ? {
+                ...g,
+                graph: {
+                  ...g.graph,
+                  edges: [
+                    ...g.graph.edges,
+                    {
+                      key: id,
+                      source: conn.source!,
+                      target: conn.target!,
+                      obj: edgeObj,
+                    },
+                  ],
+                },
+              }
+            : g
+        );
+
+        return [...prev, newEdge];
+      });
+    },
+    [echelonMap, setGraph]
   );
 
   const resetSelection = useCallback(() => {
@@ -204,6 +453,7 @@ export default function App() {
     setDetails(null);
   }, []);
 
+  // --- Click (node/edge)
   const onElementClick = useCallback(
     (_: React.MouseEvent, el: RFNode<FlowNodeData> | RFEdge<FlowEdgeData>) => {
       const isEdge = (el as RFEdge).source !== undefined;
@@ -216,8 +466,7 @@ export default function App() {
         nodeSet.add(edge.source);
         nodeSet.add(edge.target);
         setSelected({ kind: "edge", id: edge.id });
-        const obj = edge.data?.obj;
-        setDetails(obj ? sanitizeToJSONValue(obj) : null);
+        setDetails(edge.data?.obj ? sanitizeToJSONValue(edge.data.obj) : null);
       } else {
         const node = el as RFNode<FlowNodeData>;
         nodeSet.add(node.id);
@@ -232,8 +481,7 @@ export default function App() {
           }
         });
         setSelected({ kind: "node", id: node.id });
-        const obj = node.data?.obj;
-        setDetails(obj ? sanitizeToJSONValue(obj) : null);
+        setDetails(node.data?.obj ? sanitizeToJSONValue(node.data.obj) : null);
       }
 
       setNodes((nds) =>
@@ -252,7 +500,7 @@ export default function App() {
     [edges]
   );
 
-  // Sync details edits => nodes/edges
+  // --- Sync edits из дерева JSON
   useEffect(() => {
     if (!selected || details === null) return;
     if (selected.kind === "node") {
@@ -286,19 +534,17 @@ export default function App() {
     }
   }, [details, selected]);
 
-  // Change of value in JSON tree
   const handleJsonChange = useCallback(
     (path: (string | number)[], next: JSONValue) => {
-      setDetails((prev: JSONValue | null) =>
+      setDetails((prev) =>
         prev === null ? prev : updateJsonAtPath(prev, path, next)
       );
     },
     []
   );
 
-  // Import / Export
+  // --- Import
   const onImportClick = () => fileInputRef.current?.click();
-
   const onFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const file = evt.target.files?.[0];
     if (!file) return;
@@ -315,6 +561,7 @@ export default function App() {
     evt.target.value = "";
   };
 
+  // --- Export
   const performExport = useCallback(
     (filename: string) => {
       if (!graph) return;
@@ -346,38 +593,114 @@ export default function App() {
     [nodes, edges, graph]
   );
 
+  // --- UI
   return (
-    <div className="app-container">
-      <div className="controls" style={{ padding: 8, display: "flex", gap: 8 }}>
-        <Button onClick={onImportClick}>Import JSON</Button>
-        <input
-          type="file"
-          accept=".json"
-          style={{ display: "none" }}
-          ref={fileInputRef}
-          onChange={onFileChange}
-        />
-        <Button
-          type="primary"
-          onClick={() => {
-            if (graph) {
-              setExportName("export_network.json");
-              setExportOpen(true);
-            }
-          }}
-          disabled={!graph}
-        >
-          Export JSON
-        </Button>
+    <div className="app-root">
+      <div
+        style={{
+          position: "absolute",
+          left: 8,
+          top: 8,
+          zIndex: 50,
+          background: "rgba(255,255,255,0.9)",
+          padding: 8,
+          borderRadius: 4,
+          display: "flex",
+          gap: 8,
+          flexWrap: "wrap",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+          maxWidth: "calc(100% - 400px)",
+        }}
+      >
+        <Space wrap align="center">
+          <Button onClick={onImportClick}>Import</Button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            style={{ display: "none" }}
+            onChange={onFileChange}
+          />
+          <Button
+            type="primary"
+            disabled={!graph}
+            onClick={() => {
+              if (graph) {
+                setExportName("export_network");
+                setExportOpen(true);
+              }
+            }}
+          >
+            Export
+          </Button>
+
+          <Select
+            placeholder="Node template"
+            style={{ width: 150 }}
+            value={nodeTemplateType}
+            onChange={(v) => setNodeTemplateType(v)}
+            options={NODE_TEMPLATES.map((t) => ({
+              label: t.node_type,
+              value: t.node_type,
+            }))}
+          />
+          <Button
+            onClick={addNodeFromTemplate}
+            disabled={!nodeTemplateType || !graph}
+          >
+            Add Node
+          </Button>
+
+          <Select
+            placeholder="Source"
+            style={{ width: 120 }}
+            value={edgeForm.source}
+            onChange={(v) => setEdgeForm((f) => ({ ...f, source: v }))}
+            options={nodes.map((n) => ({ label: n.id, value: n.id }))}
+          />
+          <Select
+            placeholder="Target"
+            style={{ width: 120 }}
+            value={edgeForm.target}
+            onChange={(v) => setEdgeForm((f) => ({ ...f, target: v }))}
+            options={nodes.map((n) => ({ label: n.id, value: n.id }))}
+          />
+          <Select
+            style={{ width: 130 }}
+            value={edgeForm.edge_type}
+            onChange={(v) => setEdgeForm((f) => ({ ...f, edge_type: v }))}
+            options={[
+              { label: "movement", value: "movement" },
+              { label: "supply", value: "supply" },
+              { label: "bom", value: "bom" },
+              { label: "undefined", value: "undefined" },
+            ]}
+          />
+          <Button
+            onClick={addEdgeManual}
+            disabled={!edgeForm.source || !edgeForm.target || !graph}
+          >
+            Add Edge
+          </Button>
+          <Button danger disabled={!selected} onClick={deleteSelected}>
+            Delete Selected
+          </Button>
+          <Button onClick={resetSelection} disabled={!selected}>
+            Reset Selection
+          </Button>
+        </Space>
       </div>
 
-      <ReactFlowProvider>
+      <div className="flow-area">
         <div className="reactflow-wrapper">
           <ReactFlow
+            onInit={(inst) => {
+              rfInstanceRef.current = inst;
+            }}
             nodes={nodes}
             edges={edges}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
+            nodeTypes={NODE_TYPES}
+            edgeTypes={EDGE_TYPES}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
@@ -385,31 +708,23 @@ export default function App() {
             onEdgeClick={onElementClick}
             onPaneClick={resetSelection}
             fitView
-            style={{ width: "100%", height: "calc(100vh - 48px)" }}
           />
         </div>
-      </ReactFlowProvider>
+      </div>
 
-      <div
-        className="sidebar"
+      <aside
         style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          height: "100vh",
           width: sidebarWidth,
           minWidth: 240,
           maxWidth: "70vw",
-          background: "#f8f9fa",
           borderLeft: "1px solid #ddd",
-          boxShadow: "0 0 8px rgba(0,0,0,0.12)",
-          display: "flex",
-          flexDirection: "column",
-          zIndex: 1000,
-          overflow: "hidden",
+          background: "#f8f9fa",
+          height: "100%",
+          overflow: "auto",
+          position: "relative",
+          flexShrink: 0,
         }}
       >
-        {/* Resizer handle */}
         <div
           onMouseDown={startResize}
           style={{
@@ -419,18 +734,9 @@ export default function App() {
             width: 6,
             height: "100%",
             cursor: "col-resize",
-            background: "transparent",
-          }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(0,0,0,0.06)")
-          }
-          onMouseLeave={(e) => {
-            if (!resizingRef.current)
-              e.currentTarget.style.background = "transparent";
+            zIndex: 10,
           }}
         />
-
-        {/* Header */}
         <div
           style={{
             padding: "10px 14px 8px",
@@ -438,29 +744,19 @@ export default function App() {
             background: "#e9ecef",
             borderBottom: "1px solid #d0d0d0",
             fontSize: 14,
-            lineHeight: 1.2,
-            flex: "0 0 auto",
           }}
         >
           Details
         </div>
-
-        {/* Content */}
-        <div
-          style={{
-            flex: "1 1 auto",
-            overflow: "auto",
-            padding: "8px 12px 16px",
-            fontSize: 12,
-          }}
-        >
+        <div style={{ padding: "8px 12px 16px", fontSize: 12 }}>
           {details ? (
             <JsonTree value={details} onChange={handleJsonChange} />
           ) : (
             <div>Select a node or edge</div>
           )}
         </div>
-      </div>
+      </aside>
+
       <Modal
         title="Export JSON"
         open={exportOpen}
@@ -479,7 +775,7 @@ export default function App() {
           placeholder="export"
         />
         <div style={{ fontSize: 12, marginTop: 4, color: "#666" }}>
-          .json will be appended if not set.
+          “.json” will be appended if not present.
         </div>
       </Modal>
     </div>
