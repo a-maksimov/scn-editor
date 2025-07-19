@@ -3,11 +3,5 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ],
-    "compilerOptions": {
-    "resolveJsonModule": true,  // enables import data from './network.json'
-    "esModuleInterop": true,  // ease work with CommonJS‑modules
-    "jsx": "react-jsx"  // set format JSX for react 18+
-  },
-  "include": ["src"]
+  ]
 }

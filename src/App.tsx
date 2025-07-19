@@ -580,7 +580,7 @@ export default function App() {
             key: e.id,
             source: e.source,
             target: e.target,
-            obj: e.data.obj,
+            obj: e.data ? (e.data as FlowEdgeData).obj : undefined,
           })),
         },
         echelons: graph.echelons,
