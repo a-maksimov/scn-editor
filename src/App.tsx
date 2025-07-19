@@ -54,7 +54,6 @@ import "./css/App.css";
 const NODE_TYPES = { custom: NodeWithHandles } as const;
 const EDGE_TYPES = { customBezier: CustomBezierEdge } as const;
 
-// --- Утилиты ID
 const genNodeId = () => `n_${Date.now().toString(36)}`;
 const genEdgeId = (s: string, t: string, et: string) =>
   `${s}__${et}__${t}__${Date.now().toString(36)}`;
@@ -67,14 +66,12 @@ const cloneEdgeTemplateObj = (edge_type: string) => {
   return tpl ? { ...tpl.defaultObj } : ({ edge_type } as SupplyEdgeObject);
 };
 
-// --- Выбор (node | edge)
 interface SelectionState {
   kind: "node" | "edge";
   id: string;
 }
 
 export default function App() {
-  // --- Состояния
   const [graph, setGraph] = useState<GraphData | null>(null);
   const [nodes, setNodes] = useState<RFNode<FlowNodeData>[]>([]);
   const [edges, setEdges] = useState<RFEdge<FlowEdgeData>[]>([]);
@@ -90,7 +87,6 @@ export default function App() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const rfInstanceRef = useRef<ReactFlowInstance | null>(null);
 
-  // --- Формы добавления
   const [nodeTemplateType, setNodeTemplateType] = useState<
     string | undefined
   >();
@@ -180,7 +176,7 @@ export default function App() {
     [rawEdges, echelonMap]
   );
 
-  // --- Reset при смене graph
+  // --- Reset graph change
   useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
@@ -188,13 +184,12 @@ export default function App() {
     setDetails(null);
   }, [initialNodes, initialEdges]);
 
-  // --- Добавление узла
+  // --- Add node
   const addNodeFromTemplate = useCallback(() => {
     if (!nodeTemplateType) return;
     const tpl = NODE_TEMPLATES.find((t) => t.node_type === nodeTemplateType);
     if (!tpl) return;
 
-    // центр текущего viewport (если инстанс готов)
     const inst = rfInstanceRef.current;
     const viewport = inst?.getViewport();
     let position = { x: 0, y: 0 };
@@ -212,7 +207,7 @@ export default function App() {
     const id = genNodeId();
     const obj = {
       ...tpl.defaultObj,
-      // если нет network_key заранее – заполняем им же
+      // if not network key
       network_key: tpl.defaultObj.network_key ?? id,
     };
 
@@ -245,7 +240,7 @@ export default function App() {
     });
   }, [nodeTemplateType, setNodes, setGraph]);
 
-  // --- Добавление ребра
+  // --- Add edge
   const addEdgeManual = useCallback(() => {
     const { source, target, edge_type } = edgeForm;
     if (!source || !target || source === target) return;
@@ -263,7 +258,7 @@ export default function App() {
       ...tpl.defaultObj,
       network_key_from: source,
       network_key_to: target,
-      // network_key можно синтетически задать, если нужно уникально:
+      // unique synthetic network_key for edge
       network_key:
         tpl.defaultObj.network_key ?? `(${source})__${edge_type}__(${target})`,
     };
@@ -298,7 +293,7 @@ export default function App() {
     );
   }, [edgeForm, echelonMap]);
 
-  // --- Удаление выбранного
+  // --- Delete selected edge or node
   const deleteSelected = useCallback(() => {
     if (!selected) return;
 
@@ -384,7 +379,7 @@ export default function App() {
       const source = conn.source;
       const target = conn.target;
 
-      // не дублировать movement между той же парой
+      // do not duplicate movements
       setEdges((prev) => {
         if (
           prev.some(
@@ -420,7 +415,7 @@ export default function App() {
           style: { strokeWidth: 2, opacity: 1 },
         };
 
-        // синхронизируем graph
+        // sync graph
         setGraph((g) =>
           g
             ? {
@@ -505,7 +500,7 @@ export default function App() {
     [edges]
   );
 
-  // --- Sync edits из дерева JSON
+  // --- Sync edits from JSON Tree
   useEffect(() => {
     if (!selected || details === null) return;
     if (selected.kind === "node") {
