@@ -1,4 +1,4 @@
-import type { JSONValue } from "./components/json-types";
+import type { JSONObject, JSONValue } from "./components/json-types";
 import type {
   RawNode,
   SupplyEdgeObject,
@@ -135,19 +135,31 @@ export function sanitizeToJSONValue<T extends object>(obj: T): JSONValue {
   return obj as unknown as JSONValue;
 }
 
-export function updateJsonAtPath<T extends JSONValue>(
-  root: T,
+export function updateJsonAtPath(
+  root: JSONValue,
   path: (string | number)[],
   nextValue: JSONValue
-): T {
-  if (!path.length) return nextValue as T;
-  const clone = structuredClone(root) as any;
-  let cursor: any = clone;
-  for (let i = 0; i < path.length - 1; i++) {
-    cursor = cursor[path[i]];
+): JSONValue {
+  if (path.length === 0) return nextValue;
+  const [head, ...rest] = path;
+
+  if (Array.isArray(root)) {
+    const copy = [...root];
+    const idx = head as number;
+    copy[idx] = updateJsonAtPath(copy[idx], rest, nextValue);
+    return copy;
   }
-  cursor[path[path.length - 1]] = nextValue;
-  return clone;
+  if (root !== null && typeof root === "object") {
+    const obj = root as JSONObject;
+    const copy: JSONObject = { ...obj };
+    copy[head as string] = updateJsonAtPath(
+      copy[head as string],
+      rest,
+      nextValue
+    );
+    return copy;
+  }
+  return nextValue;
 }
 
 export function isSupplyNodeObject(obj: unknown): obj is SupplyNodeObject {

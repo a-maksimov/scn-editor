@@ -23,29 +23,17 @@ export const JsonTree: React.FC<JsonTreeProps> = ({
   depth = 0,
   collapsedByDefault = true,
 }) => {
-  /**
-   * ВСЕ ХУКИ – ПЕРЕД ЛЮБЫМИ УСЛОВНЫМИ RETURN.
-   * НЕТ ни одного `return` выше.
-   */
   const [open, setOpen] = useState(
     depth === 0 ? true : !collapsedByDefault ? true : false
   );
 
-  // Подготавливаем “детей” заранее – хук всегда вызывается.
   const objectEntries = useMemo<[string, JSONValue][]>(
     () => (isObject(value) ? Object.entries(value) : []),
-    [value]
-  );
-  const arrayItems = useMemo<JSONValue[]>(
-    () => (Array.isArray(value) ? value : []),
     [value]
   );
 
   const toggle = useCallback(() => setOpen((o) => !o), []);
 
-  // Далее — просто ветвления от уже подготовленных данных (хуков больше нет).
-
-  // Примитив
   if (isPrimitive(value)) {
     const display = value === null ? "" : String(value);
     return (
@@ -70,37 +58,82 @@ export const JsonTree: React.FC<JsonTreeProps> = ({
     );
   }
 
-  // Массив
   if (Array.isArray(value)) {
     return (
-      <div className="jt-branch">
-        <div className="jt-header" onClick={toggle}>
-          <span className="jt-caret">{open ? "▼" : "▶"}</span>
-          <span className="jt-key">
-            [Array] <span className="jt-faint">({arrayItems.length})</span>
+      <details open>
+        <summary className="jt-summary">
+          <span
+            style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+          >
+            [Array] ({value.length})
+            <button
+              type="button"
+              className="jt-btn"
+              title="Add element"
+              onClick={(e) => {
+                e.stopPropagation();
+                const defaultNewElement: JSONValue = (() => {
+                  if (value.length > 0) {
+                    const sample = value[0];
+                    if (typeof sample === "number") return 0;
+                    if (typeof sample === "string") return "";
+                    if (typeof sample === "boolean") return false;
+                    if (Array.isArray(sample)) return [];
+                    if (sample && typeof sample === "object") return {};
+                  }
+                  return null;
+                })();
+                const newArr = [...value, defaultNewElement]; // <- меняй null на что хочешь по умолчанию
+                onChange?.(path, newArr);
+              }}
+            >
+              +
+            </button>
           </span>
-        </div>
-        {open && (
-          <div className="jt-children">
-            {arrayItems.map((item, idx) => (
-              <div key={idx} className="jt-node">
-                <div className="jt-key">[{idx}]</div>
-                <JsonTree
-                  value={item}
-                  path={[...path, idx]}
-                  onChange={onChange}
-                  depth={depth + 1}
-                  collapsedByDefault={collapsedByDefault}
-                />
+        </summary>
+        <div className="jt-children">
+          {value.map((item, idx) => (
+            <div key={idx} className="jt-node">
+              <div
+                className="jt-key"
+                style={{ display: "flex", alignItems: "center", gap: 4 }}
+              >
+                <span>[{idx}]</span>
+                <button
+                  type="button"
+                  className="jt-btn jt-btn-remove"
+                  title="Remove element"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const newArr = value
+                      .slice(0, idx)
+                      .concat(value.slice(idx + 1));
+                    onChange?.(path, newArr);
+                  }}
+                  style={{
+                    fontSize: 10,
+                    lineHeight: 1,
+                    padding: "0 4px",
+                    border: "1px solid #ccc",
+                    background: "#fafafa",
+                    cursor: "pointer",
+                  }}
+                >
+                  ×
+                </button>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+              <JsonTree
+                value={item}
+                path={[...path, idx]}
+                onChange={onChange}
+              />
+            </div>
+          ))}
+        </div>
+      </details>
     );
   }
 
-  // Объект
   return (
     <div className="jt-branch">
       <div className="jt-header" onClick={toggle}>
