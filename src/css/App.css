@@ -1,0 +1,174 @@
+/* ========================================================================== */
+/*  Root Layout                                                              */
+/* ========================================================================== */
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.app-root {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.flow-area {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  min-width: 0;
+}
+
+.reactflow-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ========================================================================== */
+/*  Sidebar                                                                  */
+/* ========================================================================== */
+
+.sidebar {
+  box-sizing: border-box;
+  width: 300px;
+  padding: 16px;
+  background: #fff;
+  border-left: 1px solid #ddd;
+  overflow: auto;
+}
+
+/* ========================================================================== */
+/*  JSON Tree: Core Structure                                                */
+/* ========================================================================== */
+
+.jt-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 2px 0;
+}
+
+.jt-node {
+  margin: 2px 0;
+}
+
+.jt-children {
+  margin-left: 12px;
+  padding-left: 8px;
+  border-left: 1px solid #e1e1e1;
+}
+
+.jt-key {
+  margin-bottom: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #333;
+}
+
+.jt-summary {
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* caret + header hover */
+
+.jt-caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  margin-right: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
+  color: #555;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.jt-header:hover .jt-caret {
+  color: #222;
+}
+
+/* ========================================================================== */
+/*  JSON Tree: Inputs & Type Tags                                            */
+/* ========================================================================== */
+
+.jt-input {
+  padding: 2px 4px;
+  font-size: 12px;
+}
+
+.jt-type-tag {
+  padding: 1px 4px;
+  font-size: 10px;
+  color: #555;
+  background: #eee;
+  border-radius: 3px;
+}
+
+/* ========================================================================== */
+/*  JSON Tree: Controls (add/remove)                                         */
+/* ========================================================================== */
+
+.jt-add-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.jt-newkey-input {
+  width: 90px;
+}
+
+.jt-add-btn {
+  margin-top: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+/* ========================================================================== */
+/*  Generic Buttons (JSON Tree)                                              */
+/* ========================================================================== */
+
+.jt-btn {
+  padding: 0 6px;
+  font-size: 11px;
+  background: #eee;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.jt-btn:hover {
+  background: #ddd;
+}
+
+.jt-btn-remove {
+  color: #a00;
+  border-color: #d99;
+}
+
+.jt-btn-remove:hover {
+  background: #f4e5e5;
+}
+
+/* ========================================================================== */
+/*  (Optional) Utility / Placeholder Classes                                 */
+/* ========================================================================== */
+/* Add future utilities here if needed                                       */
+/* ========================================================================== */

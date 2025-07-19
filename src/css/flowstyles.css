@@ -1,0 +1,72 @@
+/* === Node Shapes (WORKFLOW) === */
+.custom-node-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* <-- ключевое для горизонтального центрирования детей */
+}
+
+.custom-node-label {
+  margin-top: var(--label-spacing, 4px);
+  font-size: 11px;
+  max-width: 110px;
+  text-align: center; /* центрирует многострочный текст внутри самого блока */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-node-shape {
+  position: relative;
+  width: var(--node-size, 50px);
+  height: var(--node-size, 50px);
+  border: var(--node-border-width, 2px) solid var(--node-border-color, #333);
+  box-sizing: border-box;
+}
+
+.custom-node-shape.node--sale {
+  background: yellow;
+  border-radius: 50%;
+}
+
+.custom-node-shape.node--stock,
+.custom-node-shape.node--stock_no_storage,
+.custom-node-shape.node--distributor {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.custom-node-shape.node--stock {
+  background: blue;
+}
+
+.custom-node-shape.node--stock_no_storage {
+  background: lightgray;
+}
+
+.custom-node-shape.node--distributor {
+  background: yellow;
+}
+
+.custom-node-shape.node--production {
+  background: black;
+}
+
+.custom-node-shape.node--procurement {
+  background: green;
+}
+
+.custom-node-shape.node--undefined {
+  background: lightgray;
+}
+
+/* Цвет текста (если есть внутренний контент) */
+.custom-node-shape.node--stock,
+.custom-node-shape.node--distributor,
+.custom-node-shape.node--production,
+.custom-node-shape.node--procurement {
+  color: white;
+}
+
+.custom-node-shape.node--stock_no_storage,
+.custom-node-shape.node--undefined {
+  color: black;
+}
