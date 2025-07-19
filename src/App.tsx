@@ -51,7 +51,6 @@ import "reactflow/dist/style.css";
 import "./css/flowStyles.css";
 import "./css/App.css";
 
-// --- Вынесенные типы для React Flow (важно чтобы не пересоздавались)
 const NODE_TYPES = { custom: NodeWithHandles } as const;
 const EDGE_TYPES = { customBezier: CustomBezierEdge } as const;
 
