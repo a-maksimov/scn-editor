@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { NODE_TEMPLATES } from "./node_templates";
 import { EDGE_TEMPLATES } from "./edge_templates";
 
-import "../legend.css";
+import "../css/legend.css";
 
 export const Legend: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);

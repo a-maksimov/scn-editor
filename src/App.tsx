@@ -23,9 +23,9 @@ import {
   buildEchelonMap,
   computeEchelonPositions,
   roundNumbers,
-  deriveNodeLabel,
   updateJsonAtPath,
   sanitizeToJSONValue,
+  buildShortNodeLabel,
 } from "./utils";
 
 import {
@@ -38,18 +38,18 @@ import {
   type SupplyNodeObject,
 } from "./components/network_classes";
 
-import CustomBezierEdge from "./CustomBezierEdge";
-import NodeWithHandles from "./NodeWithHandles";
+import CustomBezierEdge from "./components/CustomBezierEdge";
+import NodeWithHandles from "./components/NodeWithHandles";
 import { JsonTree } from "./components/JsonTree";
 import { NODE_TEMPLATES } from "./components/node_templates";
 import { EDGE_TEMPLATES } from "./components/edge_templates";
 import { Legend } from "./components/legend";
 
-import type { JSONValue } from "./components/json-types";
+import type { JSONValue } from "./components/json_types";
 
 import "reactflow/dist/style.css";
-import "./flowStyles.css";
-import "./App.css";
+import "./css/flowStyles.css";
+import "./css/App.css";
 
 // --- Вынесенные типы для React Flow (важно чтобы не пересоздавались)
 const NODE_TYPES = { custom: NodeWithHandles } as const;
@@ -141,11 +141,15 @@ export default function App() {
     () =>
       rawNodes.map((n) => {
         const obj = n.obj as SupplyNodeObject;
+        const shortLabel = buildShortNodeLabel(obj, {
+          maxLen: 26,
+          showType: true,
+        });
         return {
           id: n.id,
           type: "custom",
           data: {
-            label: deriveNodeLabel(obj),
+            label: shortLabel,
             obj,
           },
           position: positions[n.id] ?? { x: 0, y: 0 },

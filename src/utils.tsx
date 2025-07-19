@@ -1,4 +1,4 @@
-import type { JSONObject, JSONValue } from "./components/json-types";
+import type { JSONObject, JSONValue } from "./components/json_types";
 import type {
   RawNode,
   SupplyEdgeObject,
@@ -170,6 +170,40 @@ export function isSupplyEdgeObject(obj: unknown): obj is SupplyEdgeObject {
   return !!obj && typeof obj === "object" && "edge_type" in (obj as any);
 }
 
-export function deriveNodeLabel(nodeObj: SupplyNodeObject): string {
-  return nodeObj.network_key ?? nodeObj.node_type;
+interface ShortLabelOptions {
+  maxLen?: number;
+  showType?: boolean;
+}
+
+export function buildShortNodeLabel(
+  obj: SupplyNodeObject,
+  opt: ShortLabelOptions = {}
+): string {
+  const { maxLen = 22, showType = true } = opt;
+  const type = obj.node_type ?? "";
+  let base = "";
+  const raw = String(obj.network_key ?? "");
+  if (raw.includes("NetworkKey")) {
+    // Example: NetworkKey(location='danang', product='beans')
+    const locMatch = raw.match(/location='([^']+)'/);
+    const prodMatch = raw.match(/product='([^']+)'/);
+    const loc = locMatch?.[1];
+    const prod = prodMatch?.[1];
+    if (loc || prod) {
+      base = [loc, prod].filter(Boolean).join("/");
+    } else {
+      base = raw.replace(/^NetworkKey\\(|\\)$/g, "");
+    }
+  } else {
+    base = raw;
+  }
+  if (!base) base = type || "node";
+
+  base = base.replace(/['\"\\s]+/g, " ").trim();
+
+  let label = showType ? `${base}` : base;
+  if (label.length > maxLen) {
+    label = label.slice(0, maxLen - 1) + "…";
+  }
+  return label;
 }

@@ -1,6 +1,6 @@
-// src/components/JsonTree.tsx
+// JsonTree.tsx
 import React, { useState, useMemo, useCallback } from "react";
-import type { JSONObject, JSONPrimitive, JSONValue } from "./json-types";
+import type { JSONObject, JSONPrimitive, JSONValue } from "./json_types";
 
 interface JsonTreeProps {
   value: JSONValue;
