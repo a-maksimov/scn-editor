@@ -3,8 +3,8 @@ import { ReactFlowProvider } from "reactflow";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import "antd/dist/reset.css";
 import "./index.css";
+import "antd/dist/reset.css";
 import "reactflow/dist/style.css";
 import "./css/variables.css";
 import "./css/flowStyles.css";

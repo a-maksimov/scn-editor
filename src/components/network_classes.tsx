@@ -22,6 +22,11 @@ export interface GraphData {
   };
 }
 
+export const EMPTY_GRAPH: GraphData = {
+  graph: { nodes: [], edges: [] },
+  echelons: { backwards: [], forward: [] },
+};
+
 // Domain objects (fields after parsing)
 export interface SupplyNodeObject {
   node_type: string;
@@ -37,11 +42,11 @@ export interface SupplyNodeObject {
   pools?: unknown[];
   propagated_lead_time?: number;
   propagated_lead_time_var?: number;
-  propagated_demand?: number | null;
-  reorder_point?: number | null;
-  order_size?: number | null;
-  cycle_stock?: number | null;
-  average_cycle_stock?: number | null;
+  propagated_demand?: number[];
+  reorder_point?: number[];
+  order_size?: number[];
+  cycle_stock?: number[];
+  average_cycle_stock?: number[];
   propagated_min_lot_size?: number;
   propagated_lot_multiplier?: number;
   node_lot_size?: number;
