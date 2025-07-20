@@ -1,31 +1,59 @@
-/* === Node Shapes (WORKFLOW) === */
+/* =========================
+   Graph Styles (React Flow)
+   Depends on variables.css
+   ========================= */
+
+/* Reset some RF defaults (if нужно) */
+.react-flow__node {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  font-family: inherit;
+}
+
+/* --- Node wrapper --- */
 .custom-node-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center; /* <-- ключевое для горизонтального центрирования детей */
+  align-items: center;
+  pointer-events: all;
+  font-size: var(--node-font-size);
+  color: var(--text-default);
 }
 
+/* Shape */
+.custom-node-shape {
+  position: relative;
+  width: var(--node-size);
+  height: var(--node-size);
+  border: var(--node-border-width) solid var(--node-border-color);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  user-select: none;
+}
+
+/* Label */
 .custom-node-label {
-  margin-top: var(--label-spacing, 4px);
+  margin-top: var(--node-label-spacing);
   font-size: 11px;
-  max-width: 110px;
-  text-align: center; /* центрирует многострочный текст внутри самого блока */
+  max-width: calc(var(--node-size) * 2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
+  line-height: 1.1;
 }
 
-.custom-node-shape {
-  position: relative;
-  width: var(--node-size, 50px);
-  height: var(--node-size, 50px);
-  border: var(--node-border-width, 2px) solid var(--node-border-color, #333);
-  box-sizing: border-box;
-}
-
+/* --- Node shapes / fills --- */
 .custom-node-shape.node--sale {
-  background: yellow;
+  background: var(--node-sale-bg);
   border-radius: 50%;
+  color: var(--node-text-on-light);
 }
 
 .custom-node-shape.node--stock,
@@ -35,38 +63,108 @@
 }
 
 .custom-node-shape.node--stock {
-  background: blue;
+  background: var(--node-stock-bg);
+  color: var(--node-text-on-dark);
 }
-
 .custom-node-shape.node--stock_no_storage {
-  background: lightgray;
+  background: var(--node-stock_no_storage-bg);
+  color: var(--node-text-on-light);
 }
-
 .custom-node-shape.node--distributor {
-  background: yellow;
+  background: var(--node-distributor-bg);
+  color: var(--node-text-on-dark);
 }
 
 .custom-node-shape.node--production {
-  background: black;
+  background: var(--node-production-bg);
+  color: var(--node-text-on-dark);
 }
 
 .custom-node-shape.node--procurement {
-  background: green;
+  background: var(--node-procurement-bg);
+  color: var(--node-text-on-dark);
 }
 
 .custom-node-shape.node--undefined {
-  background: lightgray;
+  background: var(--node-undefined-bg);
+  color: var(--node-text-on-light);
 }
 
-/* Цвет текста (если есть внутренний контент) */
-.custom-node-shape.node--stock,
-.custom-node-shape.node--distributor,
-.custom-node-shape.node--production,
-.custom-node-shape.node--procurement {
-  color: white;
+/* --- Edge base --- */
+.react-flow__edge-path {
+  stroke-width: var(--edge-stroke-width);
+  fill: none;
 }
 
-.custom-node-shape.node--stock_no_storage,
-.custom-node-shape.node--undefined {
-  color: black;
+/* Provide base arrow fill if class not found */
+.react-flow__arrowhead {
+  fill: currentColor;
+}
+
+/* Movement */
+.edge--movement .react-flow__edge-path {
+  stroke: var(--edge-movement-stroke);
+}
+.edge--movement .react-flow__arrowhead {
+  fill: var(--edge-movement-stroke);
+}
+
+/* Supply */
+.edge--supply .react-flow__edge-path {
+  stroke: var(--edge-supply-stroke);
+  stroke-dasharray: var(--edge-dash-pattern);
+}
+.edge--supply .react-flow__arrowhead {
+  fill: var(--edge-supply-stroke);
+}
+
+/* BOM */
+.edge--bom .react-flow__edge-path {
+  stroke: var(--edge-bom-stroke);
+  stroke-dasharray: var(--edge-dash-pattern);
+}
+.edge--bom .react-flow__arrowhead {
+  fill: var(--edge-bom-stroke);
+}
+
+/* Undefined */
+.edge--undefined .react-flow__edge-path {
+  stroke: var(--edge-undefined-stroke);
+  stroke-dasharray: var(--edge-dash-pattern);
+}
+.edge--undefined .react-flow__arrowhead {
+  fill: var(--edge-undefined-stroke);
+}
+
+/* Hover/selected tweaks (опционально) */
+.react-flow__edge:hover .react-flow__edge-path,
+.react-flow__edge.selected .react-flow__edge-path {
+  opacity: 0.75;
+  filter: brightness(1.05);
+}
+
+/* You can add transitions */
+.react-flow__edge-path {
+  transition: stroke var(--transition-fast), opacity var(--transition-fast),
+    filter var(--transition-fast);
+}
+
+.custom-node-shape {
+  transition: box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.custom-node-shape:hover {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.07);
+}
+
+.react-flow__node.selected .custom-node-shape {
+  outline: 3px solid rgba(0, 123, 255, 0.4);
+  outline-offset: 2px;
+}
+
+/* Optional dark theme adjustments (if you add .theme-dark at root) */
+.theme-dark .custom-node-shape.node--stock_no_storage,
+.theme-dark .custom-node-shape.node--undefined {
+  color: var(--node-text-on-dark);
 }

@@ -1,23 +1,27 @@
-/* ====================
-   Legend (compact)
-   ==================== */
+/* =========================
+   Legend (uses variables.css)
+   ========================= */
+
 .legend--floating {
   position: absolute;
   left: 8px;
-  top: 72px; /* ниже панели */
+  top: 72px;
   z-index: 45;
+  font-family: inherit;
+  color: var(--text-default);
 }
 
 .legend {
   width: 230px;
   font-size: 12px;
-  background: #ffffffcc;
+  background: var(--legend-bg);
   backdrop-filter: blur(2px);
-  border: 1px solid #cfd3d7;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--legend-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--legend-shadow);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .legend.is-collapsed {
@@ -31,8 +35,8 @@
   padding: 6px 10px;
   cursor: pointer;
   user-select: none;
-  background: #f2f4f6;
-  border-bottom: 1px solid #d9d9d9;
+  background: var(--legend-header-bg);
+  border-bottom: 1px solid var(--legend-header-border);
   font-weight: 600;
   font-size: 12px;
 }
@@ -44,7 +48,7 @@
   padding: 0;
   font-size: 11px;
   line-height: 1;
-  color: #555;
+  color: var(--text-subtle);
 }
 
 .legend__body {
@@ -59,7 +63,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: #444;
+  color: var(--text-legend-title);
   margin-bottom: 4px;
 }
 
@@ -73,7 +77,7 @@
   padding-right: 2px;
 }
 
-/* Общая строка */
+/* Row layout */
 .legend__row {
   display: flex;
   align-items: center;
@@ -81,54 +85,58 @@
   line-height: 1.1;
 }
 
-/* Нодовые мини-иконки */
+/* Node swatch mini-shape */
 .legend-node-swatch {
   width: 18px;
   height: 18px;
-  border: 2px solid #333;
+  border: 2px solid var(--node-border-color);
   box-sizing: border-box;
   flex-shrink: 0;
+  display: inline-block;
+  position: relative;
 }
 
-/* Подпись */
-.legend__label {
-  flex: 1 1 auto;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Иконки форм для node типов (повторяем мини-формы, но без большого размера) */
+/* Node shapes */
 .legend-node-swatch.node--sale {
-  background: yellow;
+  background: var(--node-sale-bg);
   border-radius: 50%;
 }
+
 .legend-node-swatch.node--stock,
 .legend-node-swatch.node--stock_no_storage,
 .legend-node-swatch.node--distributor {
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
+
 .legend-node-swatch.node--stock {
-  background: blue;
+  background: var(--node-stock-bg);
 }
 .legend-node-swatch.node--stock_no_storage {
-  background: lightgray;
+  background: var(--node-stock_no_storage-bg);
 }
 .legend-node-swatch.node--distributor {
-  background: yellow;
+  background: var(--node-distributor-bg);
 }
-
 .legend-node-swatch.node--production {
-  background: black;
+  background: var(--node-production-bg);
 }
 .legend-node-swatch.node--procurement {
-  background: green;
+  background: var(--node-procurement-bg);
 }
 .legend-node-swatch.node--undefined {
-  background: lightgray;
+  background: var(--node-undefined-bg);
 }
 
-/* Мини‑ребро */
+/* Label */
+.legend__label {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-default);
+}
+
+/* Edge swatch */
 .legend-edge-swatch {
   width: 60px;
   height: 16px;
@@ -136,28 +144,29 @@
   flex-shrink: 0;
 }
 
-/* Сбрасываем дефолтный stroke, задаём через классы edge--TYPE */
 .legend-edge-path {
-  stroke-width: 2px;
-  stroke: #333;
+  stroke-width: var(--edge-stroke-width);
   fill: none;
 }
 
-/* Цвет и пунктир (можно синхронизировать с основными стилями, но здесь чуть насыщеннее для читаемости) */
+/* Movement */
 .legend-edge-path.edge--movement {
-  stroke: rgba(0, 0, 0, 0.55);
+  stroke: var(--edge-movement-stroke);
 }
+/* Supply */
 .legend-edge-path.edge--supply {
-  stroke: rgba(255, 0, 0, 0.65);
-  stroke-dasharray: 5 4;
+  stroke: var(--edge-supply-stroke);
+  stroke-dasharray: var(--legend-edge-dash-pattern);
 }
+/* BOM */
 .legend-edge-path.edge--bom {
-  stroke: rgba(0, 128, 0, 0.65);
-  stroke-dasharray: 5 4;
+  stroke: var(--edge-bom-stroke);
+  stroke-dasharray: var(--legend-edge-dash-pattern);
 }
+/* Undefined */
 .legend-edge-path.edge--undefined {
-  stroke: rgba(180, 180, 180, 0.9);
-  stroke-dasharray: 5 4;
+  stroke: var(--edge-undefined-stroke);
+  stroke-dasharray: var(--legend-edge-dash-pattern);
 }
 
 .legend-edge-swatch polygon {
@@ -165,16 +174,27 @@
   stroke: none;
 }
 
-/* Для маркера цвет берём как stroke текущего path */
+/* Use stroke color as currentColor anchor */
 .legend-edge-path.edge--movement {
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--edge-movement-stroke);
 }
 .legend-edge-path.edge--supply {
-  color: rgba(255, 0, 0, 0.65);
+  color: var(--edge-supply-stroke);
 }
 .legend-edge-path.edge--bom {
-  color: rgba(0, 128, 0, 0.65);
+  color: var(--edge-bom-stroke);
 }
 .legend-edge-path.edge--undefined {
-  color: rgba(180, 180, 180, 0.9);
+  color: var(--edge-undefined-stroke);
+}
+
+/* Scrollbars (optional) */
+.legend__nodes::-webkit-scrollbar,
+.legend__edges::-webkit-scrollbar {
+  width: 6px;
+}
+.legend__nodes::-webkit-scrollbar-thumb,
+.legend__edges::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
 }

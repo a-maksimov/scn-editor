@@ -1,40 +1,40 @@
 import React from "react";
 import { getBezierPath, type EdgeProps } from "reactflow";
-import { buildPrimitiveSummary } from "../utils";
 import type { FlowEdgeData } from "./network_classes";
+import { buildPrimitiveSummary } from "../utils";
 
-const CustomBezierEdge: React.FC<EdgeProps<FlowEdgeData>> = ({
-  id,
-  sourceX,
-  sourceY,
-  sourcePosition,
-  targetX,
-  targetY,
-  targetPosition,
-  markerEnd,
-  style,
-  data,
-}) => {
+const CustomBezierEdge: React.FC<EdgeProps<FlowEdgeData>> = (props) => {
+  const {
+    id,
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition,
+    markerEnd,
+    style,
+    data,
+  } = props;
+
   if (!data) {
-    // Edge data has to exist for this application to work
     throw new Error(`Invariant violation: edge '${id}' rendered without data`);
   }
 
-  const offset = data?.offset ?? 0;
   const summary = buildPrimitiveSummary(data.obj, { maxPairs: 12 });
 
   const [edgePath] = getBezierPath({
-    sourceX: sourceX + offset,
+    sourceX: sourceX,
     sourceY,
     sourcePosition,
-    targetX: targetX + offset,
+    targetX: targetX,
     targetY,
     targetPosition,
     curvature: 0.5,
   });
 
   return (
-    <g className="react-flow__edge">
+    <>
       <title>{summary}</title>
       <path
         id={id}
@@ -43,7 +43,7 @@ const CustomBezierEdge: React.FC<EdgeProps<FlowEdgeData>> = ({
         markerEnd={markerEnd}
         style={style}
       />
-    </g>
+    </>
   );
 };
 

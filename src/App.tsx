@@ -47,10 +47,6 @@ import { Legend } from "./components/legend";
 
 import type { JSONValue } from "./components/json_types";
 
-import "reactflow/dist/style.css";
-import "./css/flowStyles.css";
-import "./css/App.css";
-
 const NODE_TYPES = { custom: NodeWithHandles } as const;
 const EDGE_TYPES = { customBezier: CustomBezierEdge } as const;
 
@@ -149,7 +145,6 @@ export default function App() {
           },
           position: positions[n.id] ?? { x: 0, y: 0 },
           className: `node--${obj.node_type}`,
-          style: { opacity: 1 },
         };
       }),
     [rawNodes, positions]
@@ -167,10 +162,9 @@ export default function App() {
           type: "customBezier",
           sourceHandle: down ? "source-bottom" : "source-top",
           targetHandle: down ? "target-top" : "target-bottom",
-          data: { offset: 0, obj },
+          data: { obj },
           markerEnd: { type: MarkerType.ArrowClosed },
           className: `edge--${obj.edge_type}`,
-          style: { strokeWidth: 2, opacity: 1 },
         };
       }),
     [rawEdges, echelonMap]
@@ -217,7 +211,6 @@ export default function App() {
       data: { label: id, obj },
       position,
       className: `node--${obj.node_type}`,
-      style: { opacity: 1 },
     };
 
     setNodes((ns) => [...ns, newNode]);
@@ -270,10 +263,9 @@ export default function App() {
       type: "customBezier",
       sourceHandle: goesDown ? "source-bottom" : "source-top",
       targetHandle: goesDown ? "target-top" : "target-bottom",
-      data: { obj: edgeObj, offset: 0 },
+      data: { obj: edgeObj },
       markerEnd: { type: MarkerType.ArrowClosed },
       className: `edge--${edgeObj.edge_type}`,
-      style: { strokeWidth: 2, opacity: 1 },
     };
 
     setEdges((es) => [...es, newEdge]);
@@ -404,15 +396,14 @@ export default function App() {
 
         const newEdge: RFEdge<FlowEdgeData> = {
           id,
-          source: source,
-          target: target,
+          source,
+          target,
           type: "customBezier",
           sourceHandle: goesDown ? "source-bottom" : "source-top",
           targetHandle: goesDown ? "target-top" : "target-bottom",
-          data: { obj: edgeObj, offset: 0 },
+          data: { obj: edgeObj },
           markerEnd: { type: MarkerType.ArrowClosed },
-          className: `edge--${edge_type}`,
-          style: { strokeWidth: 2, opacity: 1 },
+          className: `edge--${edgeObj.edge_type}`,
         };
 
         // sync graph
@@ -685,9 +676,6 @@ export default function App() {
           <Button danger disabled={!selected} onClick={deleteSelected}>
             Delete Selected
           </Button>
-          <Button onClick={resetSelection} disabled={!selected}>
-            Reset Selection
-          </Button>
         </Space>
       </div>
       <Legend />
@@ -752,7 +740,11 @@ export default function App() {
           {details ? (
             <JsonTree value={details} onChange={handleJsonChange} />
           ) : (
-            <div>Select a node or edge</div>
+            <div>
+              <div style={{ fontSize: 12, color: "#666", padding: "4px 0" }}>
+                Select a node or edge
+              </div>
+            </div>
           )}
         </div>
       </aside>
