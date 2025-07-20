@@ -25,32 +25,39 @@ import {
   roundNumbers,
   updateJsonAtPath,
   sanitizeToJSONValue,
-  buildShortNodeLabel,
 } from "./utils";
 
 import {
   type GraphData,
-  type RawNode,
-  type RawEdge,
   type FlowNodeData,
   type FlowEdgeData,
   type SupplyEdgeObject,
   type SupplyNodeObject,
+  EMPTY_GRAPH,
 } from "./components/network_classes";
 
 import CustomBezierEdge from "./components/CustomBezierEdge";
 import NodeWithHandles from "./components/NodeWithHandles";
 import { JsonTree } from "./components/JsonTree";
-import { NODE_TEMPLATES } from "./components/node_templates";
+import {
+  buildInitialSaleStream,
+  NODE_TEMPLATES,
+} from "./components/node_templates";
 import { EDGE_TEMPLATES } from "./components/edge_templates";
 import { Legend } from "./components/legend";
 
 import type { JSONValue } from "./components/json_types";
+import {
+  getNodeType,
+  hasMaxOutEdge,
+  isPairAllowed,
+  resolveEdgeType,
+} from "./components/network_builder";
+import { KEY_CONFIG } from "./components/network_builder";
 
 const NODE_TYPES = { custom: NodeWithHandles } as const;
 const EDGE_TYPES = { customBezier: CustomBezierEdge } as const;
 
-const genNodeId = () => `n_${Date.now().toString(36)}`;
 const genEdgeId = (s: string, t: string, et: string) =>
   `${s}__${et}__${t}__${Date.now().toString(36)}`;
 
@@ -67,36 +74,78 @@ interface SelectionState {
   id: string;
 }
 
+type NewNodeModalState = {
+  open: boolean;
+  nodeType: string | null;
+  values: Record<string, string>;
+  errors: Record<string, string>;
+};
+
+type UiMessage = {
+  type: "error" | "warning" | "info";
+  text: string;
+  ts: number;
+} | null;
+
 export default function App() {
+  const [uiMessage, setUiMessage] = useState<UiMessage>(null);
+  const [frozenPositions, setFrozenPositions] = useState<
+    Record<string, { x: number; y: number }>
+  >({});
   const [graph, setGraph] = useState<GraphData | null>(null);
   const [nodes, setNodes] = useState<RFNode<FlowNodeData>[]>([]);
   const [edges, setEdges] = useState<RFEdge<FlowEdgeData>[]>([]);
-  const [selected, setSelected] = useState<SelectionState | null>(null);
-  const [details, setDetails] = useState<JSONValue | null>(null);
 
   const [exportOpen, setExportOpen] = useState(false);
   const [exportName, setExportName] = useState("export");
 
+  const [selected, setSelected] = useState<SelectionState | null>(null);
+  const [details, setDetails] = useState<JSONValue | null>(null);
   const [sidebarWidth, setSidebarWidth] = useState<number>(360);
-  const resizingRef = useRef(false);
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const rfInstanceRef = useRef<ReactFlowInstance | null>(null);
-
   const [nodeTemplateType, setNodeTemplateType] = useState<
     string | undefined
   >();
+
   const [edgeForm, setEdgeForm] = useState({
     source: "",
     target: "",
     edge_type: "movement",
   });
 
-  // --- Resize sidebar
-  const startResize = (e: React.MouseEvent) => {
-    resizingRef.current = true;
-    e.preventDefault();
+  const [newNodeModal, setNewNodeModal] = useState<NewNodeModalState>({
+    open: false,
+    nodeType: null,
+    values: {},
+    errors: {},
+  });
+
+  // Messages
+  useEffect(() => {
+    if (!uiMessage) return;
+    const t = setTimeout(() => setUiMessage(null), 5000);
+    return () => clearTimeout(t);
+  }, [uiMessage]);
+
+  const pushMessage = useCallback(
+    (type: NonNullable<UiMessage>["type"], text: string) =>
+      setUiMessage({ type, text, ts: Date.now() }),
+    []
+  );
+
+  const canvasFocusedRef = useRef(false);
+  const markCanvasFocused = () => {
+    canvasFocusedRef.current = true;
   };
+
+  // Initialize graph from JSON
+  const echelons = useMemo(
+    () => (graph ? [...graph.echelons.backwards].reverse() : []),
+    [graph]
+  );
+  const echelonMap = useMemo(() => buildEchelonMap(echelons), [echelons]);
+
+  // Resize sidebar
+  const resizingRef = useRef(false);
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       if (!resizingRef.current) return;
@@ -112,140 +161,167 @@ export default function App() {
       window.removeEventListener("mouseup", onUp);
     };
   }, []);
+  const startResize = (e: React.MouseEvent) => {
+    resizingRef.current = true;
+    e.preventDefault();
+  };
 
-  // --- Derived
-  const rawNodes: RawNode[] = useMemo(() => graph?.graph.nodes ?? [], [graph]);
-  const rawEdges: RawEdge[] = useMemo(() => graph?.graph.edges ?? [], [graph]);
+  // Add node
+  const rfInstanceRef = useRef<ReactFlowInstance | null>(null);
 
-  const echelons = useMemo(
-    () => (graph ? [...graph.echelons.backwards].reverse() : []),
-    [graph]
-  );
-  const echelonMap = useMemo(() => buildEchelonMap(echelons), [echelons]);
-
-  const positions = useMemo(
-    () => computeEchelonPositions(echelons, rawNodes),
-    [echelons, rawNodes]
-  );
-
-  const initialNodes = useMemo<RFNode<FlowNodeData>[]>(
-    () =>
-      rawNodes.map((n) => {
-        const obj = n.obj as SupplyNodeObject;
-        const shortLabel = buildShortNodeLabel(obj, {
-          maxLen: 26,
-          showType: true,
-        });
-        return {
-          id: n.id,
-          type: "custom",
-          data: {
-            label: shortLabel,
-            obj,
-          },
-          position: positions[n.id] ?? { x: 0, y: 0 },
-          className: `node--${obj.node_type}`,
-        };
-      }),
-    [rawNodes, positions]
-  );
-
-  const initialEdges = useMemo<RFEdge<FlowEdgeData>[]>(
-    () =>
-      rawEdges.map((e) => {
-        const obj = e.obj as SupplyEdgeObject;
-        const down = echelonMap[e.source] < echelonMap[e.target];
-        return {
-          id: e.key,
-          source: e.source,
-          target: e.target,
-          type: "customBezier",
-          sourceHandle: down ? "source-bottom" : "source-top",
-          targetHandle: down ? "target-top" : "target-bottom",
-          data: { obj },
-          markerEnd: { type: MarkerType.ArrowClosed },
-          className: `edge--${obj.edge_type}`,
-        };
-      }),
-    [rawEdges, echelonMap]
-  );
-
-  // --- Reset graph change
-  useEffect(() => {
-    setNodes(initialNodes);
-    setEdges(initialEdges);
-    setSelected(null);
-    setDetails(null);
-  }, [initialNodes, initialEdges]);
-
-  // --- Add node
-  const addNodeFromTemplate = useCallback(() => {
+  const openAddNodeModal = useCallback(() => {
     if (!nodeTemplateType) return;
-    const tpl = NODE_TEMPLATES.find((t) => t.node_type === nodeTemplateType);
-    if (!tpl) return;
+    setNewNodeModal({
+      open: true,
+      nodeType: nodeTemplateType,
+      values: {},
+      errors: {},
+    });
+  }, [nodeTemplateType]);
 
-    const inst = rfInstanceRef.current;
-    const viewport = inst?.getViewport();
-    let position = { x: 0, y: 0 };
-    if (inst && viewport) {
-      const centerScreen = {
-        x: window.innerWidth / 2,
-        y: (window.innerHeight - 48) / 2,
+  const addNodeFromTemplate = useCallback(
+    (nodeType: string, networkKey: string, values: Record<string, string>) => {
+      // 1. Find template
+      const type_template = NODE_TEMPLATES.find(
+        (t) => t.node_type === nodeType
+      );
+      if (!type_template) {
+        console.error("Template not found for node type", nodeType);
+        return;
+      }
+
+      // 2. Copy defaultObj
+      const obj = JSON.parse(JSON.stringify(type_template.defaultObj));
+      obj.network_key = networkKey;
+
+      // Get client/location/product and form an initial stream
+      if (nodeType === "sale") {
+        obj.streams = [buildInitialSaleStream(networkKey, values)];
+      }
+
+      // 3. Set position
+      let position = { x: 0, y: 0 };
+      const inst = rfInstanceRef.current;
+      const viewport = inst?.getViewport();
+      if (inst && viewport) {
+        const centerScreen = {
+          x: window.innerWidth / 2,
+          y: (window.innerHeight - 48) / 2,
+        };
+        position = inst.project({
+          x: (centerScreen.x - viewport.x) / viewport.zoom,
+          y: (centerScreen.y - viewport.y) / viewport.zoom,
+        });
+      }
+
+      // 4. Node
+      const newNode: RFNode<FlowNodeData> = {
+        id: networkKey,
+        type: "custom",
+        data: { label: networkKey, obj },
+        position,
+        className: `node--${type_template.node_type}`, // стили по типу
       };
-      position = inst.project({
-        x: (centerScreen.x - viewport.x) / viewport.zoom,
-        y: (centerScreen.y - viewport.y) / viewport.zoom,
+
+      // 5. Add state to React Flow
+      setNodes((ns) => [...ns, newNode]);
+
+      // 6. Sync with graph
+      setGraph((g) => {
+        const base = g ?? EMPTY_GRAPH;
+
+        const nodes = [...base.graph.nodes, { id: networkKey, obj }];
+        let backwards = [...base.echelons.backwards];
+        let forward = [...base.echelons.forward];
+
+        if (backwards.length === 0) {
+          backwards = [[networkKey]];
+        } else {
+          backwards[0] = [...backwards[0], networkKey];
+        }
+
+        if (forward.length === 0) {
+          forward = [[networkKey]];
+        } else {
+          const lastIdx = forward.length - 1;
+          forward[lastIdx] = [...forward[lastIdx], networkKey];
+        }
+        return {
+          graph: { ...base.graph, nodes },
+          echelons: { backwards, forward },
+        };
       });
+    },
+    [setNodes, setGraph]
+  );
+
+  const submitNewNode = useCallback(() => {
+    if (!newNodeModal.nodeType) return;
+    const cfg = KEY_CONFIG[newNodeModal.nodeType];
+    if (!cfg) return;
+
+    // simple validation
+    const errs: Record<string, string> = {};
+    cfg.fields.forEach((f) => {
+      if (!newNodeModal.values[f]?.trim()) errs[f] = "Required";
+    });
+    if (Object.keys(errs).length) {
+      setNewNodeModal((s) => ({ ...s, errors: errs }));
+      return;
     }
 
-    const id = genNodeId();
-    const obj = {
-      ...tpl.defaultObj,
-      // if not network key
-      network_key: tpl.defaultObj.network_key ?? id,
-    };
+    const networkKey = cfg.build(newNodeModal.values);
 
-    const newNode: RFNode<FlowNodeData> = {
-      id,
-      type: "custom",
-      data: { label: id, obj },
-      position,
-      className: `node--${obj.node_type}`,
-    };
+    if (nodes.some((n) => n.id === networkKey)) {
+      setNewNodeModal((s) => ({
+        ...s,
+        errors: { ...s.errors, _dup: "Node with this key already exists" },
+      }));
+      return;
+    }
 
-    setNodes((ns) => [...ns, newNode]);
-    setGraph((g) => {
-      if (!g) return g;
-      const backwards = [...g.echelons.backwards];
-      if (backwards.length === 0) backwards.push([id]);
-      else backwards[0] = [...backwards[0], id];
-      return {
-        ...g,
-        graph: {
-          ...g.graph,
-          nodes: [...g.graph.nodes, { id, obj }],
-        },
-        echelons: {
-          ...g.echelons,
-          backwards,
-        },
-      };
+    addNodeFromTemplate(newNodeModal.nodeType, networkKey, newNodeModal.values);
+
+    setNewNodeModal({
+      open: false,
+      nodeType: null,
+      values: {},
+      errors: {},
     });
-  }, [nodeTemplateType, setNodes, setGraph]);
+  }, [newNodeModal, nodes, addNodeFromTemplate]);
 
-  // --- Add edge
+  // Add edge
   const addEdgeManual = useCallback(() => {
-    const { source, target, edge_type } = edgeForm;
+    const { source, target, edge_type: chosen } = edgeForm;
     if (!source || !target || source === target) return;
+
+    const srcType = getNodeType(nodes, source);
+    if (hasMaxOutEdge(source, srcType!, edges)) {
+      pushMessage(
+        "warning",
+        `${srcType} node '${source}' already has an outgoing edge (only 1 allowed).`
+      );
+      return;
+    }
+
+    const tgtType = getNodeType(nodes, target);
+    if (!isPairAllowed(srcType, tgtType)) {
+      pushMessage(
+        "error",
+        `Connection ${srcType || "?"} → ${tgtType || "?"} is not allowed.`
+      );
+      return;
+    }
+    const resolved = resolveEdgeType(srcType!, tgtType!, chosen);
 
     const levelSource = echelonMap[source] ?? 0;
     const levelTarget = echelonMap[target] ?? 0;
     const goesDown = levelSource < levelTarget;
 
-    const id = genEdgeId(source, target, edge_type);
+    const id = genEdgeId(source, target, resolved);
     const tpl =
-      EDGE_TEMPLATES.find((t) => t.edge_type === edge_type) ||
-      EDGE_TEMPLATES.find((t) => t.edge_type === "movement")!; // fallback
+      EDGE_TEMPLATES.find((t) => t.edge_type === resolved) ||
+      EDGE_TEMPLATES.find((t) => t.edge_type === "undefined")!;
 
     const edgeObj: SupplyEdgeObject = {
       ...tpl.defaultObj,
@@ -253,7 +329,7 @@ export default function App() {
       network_key_to: target,
       // unique synthetic network_key for edge
       network_key:
-        tpl.defaultObj.network_key ?? `(${source})__${edge_type}__(${target})`,
+        tpl.defaultObj.network_key ?? `(${source})__${resolved}__(${target})`,
     };
 
     const newEdge: RFEdge<FlowEdgeData> = {
@@ -265,27 +341,110 @@ export default function App() {
       targetHandle: goesDown ? "target-top" : "target-bottom",
       data: { obj: edgeObj },
       markerEnd: { type: MarkerType.ArrowClosed },
-      className: `edge--${edgeObj.edge_type}`,
+      className: `edge--${resolved}`,
     };
 
     setEdges((es) => [...es, newEdge]);
-    setGraph((g) =>
-      g
-        ? {
-            ...g,
+    setGraph((g) => {
+      const base = g ?? EMPTY_GRAPH;
+      return {
+        ...base,
+        graph: {
+          ...base.graph,
+          edges: [
+            ...base.graph.edges,
+            { key: id, source, target, obj: edgeObj },
+          ],
+        },
+      };
+    });
+  }, [edgeForm, nodes, edges, echelonMap, pushMessage]);
+
+  const onConnect = useCallback(
+    (conn: Connection) => {
+      if (!conn.source || !conn.target) return;
+
+      const source = conn.source;
+      const target = conn.target;
+
+      const srcType = getNodeType(nodes, source);
+      if (hasMaxOutEdge(source, srcType!, edges)) {
+        pushMessage(
+          "warning",
+          `${srcType} node '${source}' already has an outgoing edge (only 1 allowed).`
+        );
+        return;
+      }
+
+      const tgtType = getNodeType(nodes, target);
+      if (!isPairAllowed(srcType, tgtType)) {
+        pushMessage(
+          "error",
+          `Connection ${srcType || "?"} → ${tgtType || "?"} is not allowed.`
+        );
+        return;
+      }
+
+      const resolved = resolveEdgeType(srcType!, tgtType!, "undefined");
+
+      // do not duplicate movements
+      setEdges((prev) => {
+        if (
+          prev.some(
+            (e) =>
+              e.source === source &&
+              e.target === target &&
+              e.data?.obj.edge_type === resolved
+          )
+        ) {
+          pushMessage(
+            "warning",
+            `Edge ${source} → ${target} (${resolved}) already exists.`
+          );
+          return prev;
+        }
+
+        const levelSource = echelonMap[source] ?? 0;
+        const levelTarget = echelonMap[target] ?? 0;
+        const goesDown = levelSource < levelTarget;
+
+        const id = genEdgeId(source, target, resolved);
+        const edgeObj = cloneEdgeTemplateObj(resolved);
+        edgeObj.network_key_from = source;
+        edgeObj.network_key_to = target;
+
+        const newEdge: RFEdge<FlowEdgeData> = {
+          id,
+          source,
+          target,
+          type: "customBezier",
+          sourceHandle: goesDown ? "source-bottom" : "source-top",
+          targetHandle: goesDown ? "target-top" : "target-bottom",
+          data: { obj: edgeObj },
+          markerEnd: { type: MarkerType.ArrowClosed },
+          className: `edge--${resolved}`,
+        };
+
+        setGraph((g) => {
+          const base = g ?? EMPTY_GRAPH;
+          return {
+            ...base,
             graph: {
-              ...g.graph,
+              ...base.graph,
               edges: [
-                ...g.graph.edges,
+                ...base.graph.edges,
                 { key: id, source, target, obj: edgeObj },
               ],
             },
-          }
-        : g
-    );
-  }, [edgeForm, echelonMap]);
+          };
+        });
+        return [...prev, newEdge];
+      });
+    },
+    [nodes, edges, pushMessage, echelonMap]
+  );
 
-  // --- Delete selected edge or node
+  // Delete selected edge or node
   const deleteSelected = useCallback(() => {
     if (!selected) return;
 
@@ -333,120 +492,51 @@ export default function App() {
     setDetails(null);
   }, [selected]);
 
-  // --- Delete key
+  const confirmDeleteSelected = useCallback(() => {
+    if (!selected) return;
+    Modal.confirm({
+      title: "Delete selected?",
+      content:
+        selected.kind === "node"
+          ? `Node '${selected.id}' and its connected edges will be removed.`
+          : `Edge '${selected.id}' will be removed.`,
+      okText: "Delete",
+      okButtonProps: { danger: true },
+      cancelText: "Cancel",
+      onOk: () => {
+        deleteSelected();
+      },
+    });
+  }, [selected, deleteSelected]);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Delete" || e.key === "Backspace") deleteSelected();
+      if (e.key !== "Delete") return;
+
+      if (!canvasFocusedRef.current) return;
+
+      const ae = document.activeElement as HTMLElement | null;
+      if (
+        ae &&
+        (ae.tagName === "INPUT" ||
+          ae.tagName === "TEXTAREA" ||
+          ae.isContentEditable)
+      )
+        return;
+
+      if (!selected) return;
+
+      confirmDeleteSelected();
     };
+
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [deleteSelected]);
+  }, [selected, confirmDeleteSelected]);
 
-  // --- Export dialog Esc
-  useEffect(() => {
-    if (!exportOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setExportOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [exportOpen]);
-
-  // --- Flow handlers
-  const onNodesChange = useCallback(
-    (changes: NodeChange[]) =>
-      setNodes((nds) => applyNodeChanges(changes, nds)),
-    []
-  );
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange[]) =>
-      setEdges((eds) => applyEdgeChanges(changes, eds)),
-    []
-  );
-
-  const onConnect = useCallback(
-    (conn: Connection) => {
-      if (!conn.source || !conn.target) return;
-
-      const source = conn.source;
-      const target = conn.target;
-
-      // do not duplicate movements
-      setEdges((prev) => {
-        if (
-          prev.some(
-            (e) =>
-              e.source === source &&
-              e.target === target &&
-              e.data?.obj.edge_type === "movement"
-          )
-        ) {
-          return prev;
-        }
-
-        const edge_type = "movement";
-        const levelSource = echelonMap[source] ?? 0;
-        const levelTarget = echelonMap[target] ?? 0;
-        const goesDown = levelSource < levelTarget;
-
-        const id = genEdgeId(source, target, edge_type);
-        const edgeObj = cloneEdgeTemplateObj(edge_type);
-        edgeObj.network_key_from = source;
-        edgeObj.network_key_to = target;
-
-        const newEdge: RFEdge<FlowEdgeData> = {
-          id,
-          source,
-          target,
-          type: "customBezier",
-          sourceHandle: goesDown ? "source-bottom" : "source-top",
-          targetHandle: goesDown ? "target-top" : "target-bottom",
-          data: { obj: edgeObj },
-          markerEnd: { type: MarkerType.ArrowClosed },
-          className: `edge--${edgeObj.edge_type}`,
-        };
-
-        // sync graph
-        setGraph((g) =>
-          g
-            ? {
-                ...g,
-                graph: {
-                  ...g.graph,
-                  edges: [
-                    ...g.graph.edges,
-                    {
-                      key: id,
-                      source: conn.source!,
-                      target: conn.target!,
-                      obj: edgeObj,
-                    },
-                  ],
-                },
-              }
-            : g
-        );
-
-        return [...prev, newEdge];
-      });
-    },
-    [echelonMap, setGraph]
-  );
-
-  const resetSelection = useCallback(() => {
-    setNodes((nds) =>
-      nds.map((n) => ({ ...n, style: { ...n.style, opacity: 1 } }))
-    );
-    setEdges((eds) =>
-      eds.map((e) => ({ ...e, style: { ...e.style, opacity: 1 } }))
-    );
-    setSelected(null);
-    setDetails(null);
-  }, []);
-
-  // --- Click (node/edge)
+  // Click (node/edge)
   const onElementClick = useCallback(
     (_: React.MouseEvent, el: RFNode<FlowNodeData> | RFEdge<FlowEdgeData>) => {
+      markCanvasFocused();
       const isEdge = (el as RFEdge).source !== undefined;
       const nodeSet = new Set<string>();
       const edgeSet = new Set<string>();
@@ -491,7 +581,7 @@ export default function App() {
     [edges]
   );
 
-  // --- Sync edits from JSON Tree
+  // Sync edits from JSON Tree
   useEffect(() => {
     if (!selected || details === null) return;
     if (selected.kind === "node") {
@@ -524,7 +614,6 @@ export default function App() {
       );
     }
   }, [details, selected]);
-
   const handleJsonChange = useCallback(
     (path: (string | number)[], next: JSONValue) => {
       setDetails((prev) =>
@@ -534,8 +623,48 @@ export default function App() {
     []
   );
 
-  // --- Import
+  // Import
   const onImportClick = () => fileInputRef.current?.click();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function initializeGraph(g: GraphData) {
+    setGraph(g);
+    const echelons = [...g.echelons.backwards].reverse();
+    const rawNodes = g.graph.nodes;
+    const layout = computeEchelonPositions(echelons, rawNodes);
+
+    setFrozenPositions(layout);
+
+    const nodesInit: RFNode<FlowNodeData>[] = rawNodes.map((n) => {
+      const obj = n.obj;
+      return {
+        id: n.id,
+        type: "custom",
+        data: { label: n.id, obj },
+        position: layout[n.id] ?? { x: 0, y: 0 },
+        className: `node--${obj.node_type ?? "undefined"}`,
+      };
+    });
+
+    const edgesInit = g.graph.edges.map((e) => {
+      const obj = e.obj;
+      return {
+        id: e.key,
+        source: e.source,
+        target: e.target,
+        type: "customBezier",
+        data: { obj },
+        markerEnd: { type: MarkerType.ArrowClosed },
+        className: `edge--${obj.edge_type}`,
+      } as RFEdge<FlowEdgeData>;
+    });
+
+    setNodes(nodesInit);
+    setEdges(edgesInit);
+    setSelected(null);
+    setDetails(null);
+  }
+
   const onFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const file = evt.target.files?.[0];
     if (!file) return;
@@ -543,7 +672,7 @@ export default function App() {
     reader.onload = () => {
       try {
         const json = JSON.parse(reader.result as string);
-        setGraph(json);
+        initializeGraph(json);
       } catch {
         Modal.error({ title: "Import error", content: "Invalid JSON file." });
       }
@@ -552,7 +681,17 @@ export default function App() {
     evt.target.value = "";
   };
 
-  // --- Export
+  // Export dialog Esc
+  useEffect(() => {
+    if (!exportOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExportOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [exportOpen]);
+
+  // Export
   const performExport = useCallback(
     (filename: string) => {
       if (!graph) return;
@@ -584,7 +723,28 @@ export default function App() {
     [nodes, edges, graph]
   );
 
-  // --- UI
+  // Flow handlers
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) =>
+      setNodes((nds) => applyNodeChanges(changes, nds)),
+    []
+  );
+  const onEdgesChange = useCallback(
+    (changes: EdgeChange[]) =>
+      setEdges((eds) => applyEdgeChanges(changes, eds)),
+    []
+  );
+  const resetSelection = useCallback(() => {
+    setNodes((nds) =>
+      nds.map((n) => ({ ...n, style: { ...n.style, opacity: 1 } }))
+    );
+    setEdges((eds) =>
+      eds.map((e) => ({ ...e, style: { ...e.style, opacity: 1 } }))
+    );
+    setSelected(null);
+    setDetails(null);
+  }, []);
+
   return (
     <div className="app-root">
       <div
@@ -624,7 +784,19 @@ export default function App() {
           >
             Export
           </Button>
-
+          <Button
+            disabled={!nodes.length}
+            onClick={() => {
+              setNodes((prev) =>
+                prev.map((n) => {
+                  const pos = frozenPositions[n.id];
+                  return pos ? { ...n, position: pos } : n;
+                })
+              );
+            }}
+          >
+            Re-layout
+          </Button>
           <Select
             placeholder="Node template"
             style={{ width: 150 }}
@@ -635,10 +807,7 @@ export default function App() {
               value: t.node_type,
             }))}
           />
-          <Button
-            onClick={addNodeFromTemplate}
-            disabled={!nodeTemplateType || !graph}
-          >
+          <Button onClick={openAddNodeModal} disabled={!nodeTemplateType}>
             Add Node
           </Button>
 
@@ -669,12 +838,9 @@ export default function App() {
           />
           <Button
             onClick={addEdgeManual}
-            disabled={!edgeForm.source || !edgeForm.target || !graph}
+            disabled={!edgeForm.source || !edgeForm.target}
           >
             Add Edge
-          </Button>
-          <Button danger disabled={!selected} onClick={deleteSelected}>
-            Delete Selected
           </Button>
         </Space>
       </div>
@@ -692,15 +858,35 @@ export default function App() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            onNodeClick={onElementClick}
-            onEdgeClick={onElementClick}
-            onPaneClick={resetSelection}
+            onNodeClick={(e, n) => {
+              markCanvasFocused();
+              onElementClick(e, n);
+            }}
+            onEdgeClick={(e, ed) => {
+              markCanvasFocused();
+              onElementClick(e, ed);
+            }}
+            onPaneClick={() => {
+              markCanvasFocused();
+              resetSelection();
+            }}
             fitView
+            isValidConnection={(conn) => {
+              const sType = conn.source
+                ? getNodeType(nodes, conn.source)
+                : undefined;
+              const tType = conn.target
+                ? getNodeType(nodes, conn.target)
+                : undefined;
+              return isPairAllowed(sType, tType);
+            }}
           />
         </div>
       </div>
-
       <aside
+        onMouseDown={() => {
+          canvasFocusedRef.current = false;
+        }}
         style={{
           width: sidebarWidth,
           minWidth: 240,
@@ -748,7 +934,6 @@ export default function App() {
           )}
         </div>
       </aside>
-
       <Modal
         title="Export JSON"
         open={exportOpen}
@@ -770,6 +955,178 @@ export default function App() {
           “.json” will be appended if not present.
         </div>
       </Modal>
+      <Modal
+        open={newNodeModal.open}
+        title={`Create ${newNodeModal.nodeType || ""} node`}
+        okText="Create"
+        onOk={submitNewNode}
+        onCancel={() =>
+          setNewNodeModal({
+            open: false,
+            nodeType: null,
+            values: {},
+            errors: {},
+          })
+        }
+      >
+        {newNodeModal.nodeType &&
+          (() => {
+            const cfg = KEY_CONFIG[newNodeModal.nodeType];
+            if (!cfg) return <div>Unknown node type</div>;
+            return (
+              <div
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+              >
+                {cfg.fields.map((field, i) => {
+                  const val = newNodeModal.values[field] || "";
+                  const err = newNodeModal.errors[field];
+                  return (
+                    <div
+                      key={field}
+                      style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <label
+                        style={{
+                          fontSize: 12,
+                          fontWeight: 600,
+                          marginBottom: 4,
+                        }}
+                      >
+                        {field} *
+                      </label>
+                      <input
+                        autoFocus={i === 0}
+                        value={val}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          setNewNodeModal((s) => ({
+                            ...s,
+                            values: { ...s.values, [field]: v },
+                            errors: { ...s.errors, [field]: "" },
+                          }));
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") submitNewNode();
+                        }}
+                        style={{
+                          width: "100%",
+                          padding: 6,
+                          border: `1px solid ${err ? "#d00" : "#ccc"}`,
+                          borderRadius: 4,
+                          fontSize: 13,
+                        }}
+                      />
+                      {err && (
+                        <div style={{ color: "#d00", fontSize: 11 }}>{err}</div>
+                      )}
+                    </div>
+                  );
+                })}
+                {/* Preview */}
+                <div
+                  style={{
+                    fontFamily: "monospace",
+                    background: "#f6f6f6",
+                    padding: 8,
+                    border: "1px solid #eee",
+                    borderRadius: 4,
+                    fontSize: 12,
+                  }}
+                >
+                  {(() => {
+                    const partial: Record<string, string> = {};
+                    cfg.fields.forEach(
+                      (f) => (partial[f] = newNodeModal.values[f] || "?")
+                    );
+                    return cfg.build(partial);
+                  })()}
+                </div>
+                {newNodeModal.errors._dup && (
+                  <div style={{ color: "#d00", fontSize: 12 }}>
+                    {newNodeModal.errors._dup}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+      </Modal>
+      {uiMessage && (
+        <div
+          style={{
+            position: "fixed",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 2000,
+            display: "flex",
+            justifyContent: "center",
+            pointerEvents: "none",
+            padding: "0 12px 12px",
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{
+              pointerEvents: "auto",
+              maxWidth: 640,
+              width: "100%",
+              borderRadius: 8,
+              padding: "10px 14px",
+              fontSize: 13,
+              lineHeight: 1.4,
+              boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+              border: "1px solid",
+              display: "flex",
+              gap: 12,
+              alignItems: "flex-start",
+              background:
+                uiMessage.type === "error"
+                  ? "#fff5f5"
+                  : uiMessage.type === "warning"
+                  ? "#fffbea"
+                  : "#f2f8ff",
+              borderColor:
+                uiMessage.type === "error"
+                  ? "#ffc2c2"
+                  : uiMessage.type === "warning"
+                  ? "#ffe6a3"
+                  : "#b5d9ff",
+              color:
+                uiMessage.type === "error"
+                  ? "#7a1212"
+                  : uiMessage.type === "warning"
+                  ? "#7a5d00"
+                  : "#0b4d85",
+            }}
+          >
+            <div
+              style={{
+                fontWeight: 600,
+                textTransform: "uppercase",
+                fontSize: 11,
+              }}
+            >
+              {uiMessage.type}
+            </div>
+            <div style={{ flex: 1 }}>{uiMessage.text}</div>
+            <button
+              onClick={() => setUiMessage(null)}
+              style={{
+                border: "none",
+                background: "transparent",
+                color: "inherit",
+                fontSize: 18,
+                lineHeight: 1,
+                cursor: "pointer",
+                padding: 0,
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
